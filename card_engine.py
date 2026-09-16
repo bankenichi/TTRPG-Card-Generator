@@ -39,6 +39,7 @@ from parser_utils import (
     NORMALIZE_TYPE_HOOKS,
     FOOTER_RENDERERS,
 )
+from data_paths import resolve_dataset_path
 
 # ---------------------------------------------------------------------------
 # ASSET LOADERS
@@ -72,6 +73,7 @@ def load_svg_as_data_uri(filename, force_stretch=False):
         return ""
 
 def get_dataset_items(filename):
+    filename = resolve_dataset_path(filename)
     if not os.path.exists(filename): return []
     with open(filename, 'r', encoding='utf-8') as f:
         raw = json.load(f)
@@ -674,6 +676,7 @@ def generate_html(payload, output_html_path=None):
 
     for ds_info in datasets_req:
         dataset_files = ds_info['file'] if isinstance(ds_info['file'], list) else [ds_info['file']]
+        dataset_files = [resolve_dataset_path(f) for f in dataset_files]
         primary_file = dataset_files[0]
         filters = ds_info.get('filters', {})
 

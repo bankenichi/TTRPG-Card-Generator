@@ -9,9 +9,14 @@ import io
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 
+from data_paths import (
+    GENERATORS_DIR,
+    DEFAULT_DATA_DIR as DATA_DIR,
+    is_data_ready,
+    translate_served_path,
+)
+
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-GENERATORS_DIR = os.path.join(SCRIPT_DIR, "generators")
-DATA_DIR = os.path.join(GENERATORS_DIR, "data")
 GIT_EXE = os.path.join(SCRIPT_DIR, "git-portable", "bin", "git.exe")
 
 def get_git_cmd():
@@ -65,11 +70,6 @@ def extract_zip_data(zip_bytes):
         return True, "Successfully extracted ZIP."
     except Exception as e:
         return False, f"ZIP extraction failed: {str(e)}"
-
-def is_data_ready():
-    class_dir = os.path.join(DATA_DIR, "data", "class")
-    spells_dir = os.path.join(DATA_DIR, "data", "spells")
-    return os.path.isdir(class_dir) and os.path.isdir(spells_dir)
 
 HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
@@ -193,6 +193,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 </html>"""
 
 class LauncherRequestHandler(SimpleHTTPRequestHandler):
+    def translate_path(self, path):
+        return translate_served_path(path, super().translate_path(path))
+
     def do_GET(self):
         parsed = urlparse(self.path)
         if parsed.path == '/':

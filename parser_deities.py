@@ -4,6 +4,7 @@ from parser_utils import (
     BYPASS_EXCLUDED_SOURCES_DTYPES,
     PRE_FILTER_HOOKS,
 )
+from data_paths import resolve_dataset_path
 
 PANTHEON_COLORS = {
     "Faerûnian": ("#5D4037", "#FFF8E1"),
@@ -91,7 +92,7 @@ def merge_lists(dominant_list, secondary_list):
 # 4. Dynamically cache and merge everything into arrays using the Tiered Priority
 MASTER_STATS = {}
 try:
-    with open('generators/data/data/deities.json', 'r', encoding='utf-8') as f:
+    with open(resolve_dataset_path('generators/data/data/deities.json'), 'r', encoding='utf-8') as f:
         _data = json.load(f)
         for _deity in _data.get('deity', []):
             _name = _deity.get('name')

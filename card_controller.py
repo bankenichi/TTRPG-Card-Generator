@@ -7,6 +7,7 @@ from urllib.parse import urlparse
 
 # Import the core engine logic
 from card_engine import generate_html, generate_backs_html
+from data_paths import remap_dataset_catalog, translate_served_path
 
 # ---------------------------------------------------------------------------
 # ICON DIRECTORY SCANNER
@@ -58,7 +59,9 @@ def get_datasets_json():
     path = os.path.join(SCRIPT_DIR, "datasets.json")
     if os.path.exists(path):
         with open(path, 'r', encoding='utf-8') as f:
-            return f.read()
+            catalog = json.load(f)
+        remap_dataset_catalog(catalog)
+        return json.dumps(catalog)
     return "{}"
 
 def get_index_html(svg_options_json):
@@ -435,6 +438,9 @@ def get_index_html(svg_options_json):
     return html.replace('__SVG_OPTIONS__', svg_options_json)
 
 class GeneratorRequestHandler(SimpleHTTPRequestHandler):
+    def translate_path(self, path):
+        return translate_served_path(path, super().translate_path(path))
+
     def do_GET(self):
         parsed = urlparse(self.path)
         if parsed.path == '/': 

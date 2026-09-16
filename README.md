@@ -44,6 +44,9 @@ The output HTML is optimized for standard US Letter (8.5" x 11") printing.
 
 ##  Troubleshooting
 
+**Data source not detected / dataset files 404:**
+The launcher looks under `generators/` for a 5eTools-shaped tree (`data/class` and `data/spells`), not a specific folder name. `generators/data` is preferred when that tree is ready; otherwise the first alphabetically named ready child (for example `generators/5etools`) is used. Git/ZIP installs still land in `generators/data` by default.
+
 **"ModuleNotFoundError" when launching:**
 Make sure you ran `install.bat` completely. If you are updating from an older version, delete the `python-env` folder and run `install.bat` again to pull the correct environment.
 
