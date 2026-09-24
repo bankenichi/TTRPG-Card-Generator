@@ -28,7 +28,7 @@ CATEGORY_KEYS = {
     "Decks": ("deck", "card"),
     "Actions": ("action",),
     "Bastions": ("bastion", "facility"),
-    "Languages": ("language",),
+    "Languages": ("language", "languageScript"),
 }
 
 CATEGORY_SLUGS = {
@@ -318,13 +318,30 @@ def _process_class_files(prerelease_dir: str, rel_files: List[str]) -> None:
 
 
 
+def _entity_dedupe_key(item: dict) -> tuple:
+    return (
+        str(item.get("name", "")).lower(),
+        str(item.get("source", "")).lower(),
+        str(item.get("shortName", "")).lower(),
+        str(item.get("className", "")).lower(),
+        str(item.get("classSource", "")).lower(),
+        str(item.get("level", "")),
+    )
+
+
 def _build_indexes(data_root: str, prerelease_dir: str, rel_files: List[str]) -> List[str]:
-    """Write playtest + combined indexes; return list of categories that got playtest data."""
+    """Write per-category playtest JSON (category keys only) plus combined indexes."""
     generated = os.path.join(prerelease_dir, "generated")
     os.makedirs(generated, exist_ok=True)
 
-    # Map category -> list of rel paths from prerelease/
-    by_cat: Dict[str, List[str]] = {k: [] for k in CATEGORY_KEYS}
+    # Merge only the arrays that belong to each generator category.
+    by_cat: Dict[str, Dict[str, list]] = {
+        cat: {key: [] for key in keys} for cat, keys in CATEGORY_KEYS.items()
+    }
+    seen: Dict[str, Dict[str, set]] = {
+        cat: {key: set() for key in keys} for cat, keys in CATEGORY_KEYS.items()
+    }
+
     for rel in rel_files:
         path = os.path.join(prerelease_dir, rel.replace("/", os.sep))
         try:
@@ -335,25 +352,33 @@ def _build_indexes(data_root: str, prerelease_dir: str, rel_files: List[str]) ->
         if not isinstance(data, dict):
             continue
         for cat, keys in CATEGORY_KEYS.items():
-            if _file_contributes(data, keys):
-                by_cat[cat].append(rel)
+            for key in keys:
+                items = data.get(key)
+                if not isinstance(items, list):
+                    continue
+                for item in items:
+                    if not isinstance(item, dict):
+                        continue
+                    dk = _entity_dedupe_key(item)
+                    if dk in seen[cat][key]:
+                        continue
+                    seen[cat][key].add(dk)
+                    by_cat[cat][key].append(item)
 
     populated = []
-    for cat, files in by_cat.items():
-        if not files:
+    for cat, key_lists in by_cat.items():
+        payload = {k: v for k, v in key_lists.items() if v}
+        if not payload:
             continue
         slug = CATEGORY_SLUGS[cat]
-        playtest_index = {}
-        for i, rel in enumerate(sorted(files)):
-            # path relative to generated/
-            playtest_index[f"pt_{i}"] = _rel_posix("..", *rel.split("/"))
-
-        playtest_path = os.path.join(generated, f"{slug}_playtest.json")
-        _write_json(playtest_path, playtest_index)
+        playtest_name = f"{slug}_playtest.json"
+        _write_json(os.path.join(generated, playtest_name), payload)
 
         official = OFFICIAL_PRIMARY.get(cat)
-        combined = {"_official": _rel_posix("..", "..", *official.split("/"))} if official else {}
-        combined.update(playtest_index)
+        combined = {}
+        if official:
+            combined["_official"] = _rel_posix("..", "..", *official.split("/"))
+        combined["_playtest"] = f"./{playtest_name}"
         _write_json(os.path.join(generated, f"{slug}_combined.json"), combined)
         populated.append(cat)
     return populated
