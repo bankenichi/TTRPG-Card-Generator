@@ -15,6 +15,7 @@ from data_paths import (
     is_data_ready,
     translate_served_path,
 )
+from prerelease_sync import sync_prerelease_content
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 GIT_EXE = os.path.join(SCRIPT_DIR, "git-portable", "bin", "git.exe")
@@ -39,6 +40,7 @@ def setup_from_git(repo_url):
     
     try:
         subprocess.run([git_cmd, "clone", repo_url, DATA_DIR], check=True)
+        sync_prerelease_content(DATA_DIR, git_cmd=git_cmd)
         return True, "Successfully cloned repository."
     except Exception as e:
         return False, f"Git clone failed: {str(e)}"
@@ -67,6 +69,7 @@ def extract_zip_data(zip_bytes):
             else:
                 zip_ref.extractall(DATA_DIR)
             
+        sync_prerelease_content(DATA_DIR, git_cmd=get_git_cmd())
         return True, "Successfully extracted ZIP."
     except Exception as e:
         return False, f"ZIP extraction failed: {str(e)}"

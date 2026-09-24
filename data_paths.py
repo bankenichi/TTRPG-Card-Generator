@@ -90,21 +90,30 @@ def to_relative_dataset_path(path, generators_dir=None, script_dir=None):
     return str(resolved).replace("\\", "/")
 
 
+def _remap_file_field(files, generators_dir=None, script_dir=None):
+    if isinstance(files, list):
+        return [
+            to_relative_dataset_path(p, generators_dir=generators_dir, script_dir=script_dir)
+            for p in files
+        ]
+    if isinstance(files, str):
+        return to_relative_dataset_path(
+            files, generators_dir=generators_dir, script_dir=script_dir
+        )
+    return files
+
+
 def remap_dataset_catalog(catalog, generators_dir=None, script_dir=None):
-    """Rewrite datasets.json ``file`` fields to the discovered data root."""
+    """Rewrite datasets.json path fields to the discovered data root."""
+    path_keys = ("file", "playtestFile", "combinedFile")
     for entry in catalog.values():
-        if not isinstance(entry, dict) or "file" not in entry:
+        if not isinstance(entry, dict):
             continue
-        files = entry["file"]
-        if isinstance(files, list):
-            entry["file"] = [
-                to_relative_dataset_path(p, generators_dir=generators_dir, script_dir=script_dir)
-                for p in files
-            ]
-        elif isinstance(files, str):
-            entry["file"] = to_relative_dataset_path(
-                files, generators_dir=generators_dir, script_dir=script_dir
-            )
+        for key in path_keys:
+            if key in entry:
+                entry[key] = _remap_file_field(
+                    entry[key], generators_dir=generators_dir, script_dir=script_dir
+                )
     return catalog
 
 
