@@ -1,25 +1,29 @@
 {
-    "Actions": { "file": "generators/data/data/actions.json", "filters": {} },
-    "Backgrounds": { "file": "generators/data/data/backgrounds.json", "filters": {} },
-    "Bastions": { "file": "generators/data/data/bastions.json", "filters": { "level": ["5", "9", "13", "17"] } },
+    "Actions": { "file": "generators/data/data/actions.json", "playtestFile": ["generators/data/prerelease/generated/actions_playtest.json"], "combinedFile": ["generators/data/prerelease/generated/actions_combined.json"], "filters": { "playtest": ["Official", "Playtest"] } },
+    "Backgrounds": { "file": "generators/data/data/backgrounds.json", "playtestFile": ["generators/data/prerelease/generated/backgrounds_playtest.json"], "combinedFile": ["generators/data/prerelease/generated/backgrounds_combined.json"], "filters": { "playtest": ["Official", "Playtest"] } },
+    "Bastions": { "file": "generators/data/data/bastions.json", "playtestFile": ["generators/data/prerelease/generated/bastions_playtest.json"], "combinedFile": ["generators/data/prerelease/generated/bastions_combined.json"], "filters": { "level": ["5", "9", "13", "17"], "playtest": ["Official", "Playtest"] } },
     "Bestiary": {
         "file": ["generators/data/data/bestiary/index.json", "generators/data/data/bestiary/legendarygroups.json", "generators/data/data/bestiary/template.json"],
-        "filters": { "cr": ["0", "1/8", "1/4", "1/2", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"], "size": ["T", "S", "M", "L", "H", "G", "C"], "type": ["aberration", "beast", "celestial", "construct", "dragon", "elemental", "fey", "fiend", "giant", "humanoid", "monstrosity", "ooze", "plant", "undead"] }
+        "playtestFile": ["generators/data/prerelease/generated/bestiary_playtest.json"],
+        "combinedFile": ["generators/data/prerelease/generated/bestiary_combined.json", "generators/data/data/bestiary/legendarygroups.json", "generators/data/data/bestiary/template.json"],
+        "filters": { "cr": ["0", "1/8", "1/4", "1/2", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"], "size": ["T", "S", "M", "L", "H", "G", "C"], "type": ["aberration", "beast", "celestial", "construct", "dragon", "elemental", "fey", "fiend", "giant", "humanoid", "monstrosity", "ooze", "plant", "undead"], "playtest": ["Official", "Playtest"] }
     },
     "Classes": {
         "file": ["generators/data/data/class/index.json", "generators/data/data/optionalfeatures.json"],
-        "filters": { "name": ["Artificer", "Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Paladin", "Ranger", "Rogue", "Sorcerer", "Warlock", "Wizard"], "archetype": ["Spellcaster", "Half-Caster", "Martial", "Gish / Subclass Caster"] }
+        "playtestFile": ["generators/data/prerelease/generated/classes_playtest.json"],
+        "combinedFile": ["generators/data/prerelease/generated/classes_combined.json", "generators/data/data/optionalfeatures.json"],
+        "filters": { "archetype": ["Spellcaster", "Half-Caster", "Martial", "Gish / Subclass Caster"], "playtest": ["Official", "Playtest"] }
     },
-    "Conditions / Diseases": { "file": "generators/data/data/conditionsdiseases.json", "filters": {} },
-    "Decks": { "file": "generators/data/data/decks.json", "filters": {} },
-    "Deities": { "file": "generators/data/data/deities.json", "filters": { "pantheon": ["Celtic", "Dawn War", "Dragonlance", "Drow", "Duergar", "Dwarven", "Eberron", "Egyptian", "Elven", "Exandria", "Faerûnian", "Forgotten Realms", "Gnome", "Gnomish", "Greek", "Greyhawk", "Halfling", "Nonhuman", "Norse", "Orc", "Theros", "Yuan-ti"] } },
-    "Feats": { "file": "generators/data/data/feats.json", "filters": { "category": ["General Feat", "Origin Feat", "Epic Boon", "Fighting Style"] } },
-    "Items": { "file": "generators/data/data/items.json", "filters": { "rarity": ["common", "uncommon", "rare", "very rare", "legendary", "artifact", "none"], "attunement": ["yes", "no"] } },
-    "Languages": { "file": "generators/data/data/languages.json", "filters": { "type": ["Standard", "Rare"] } },
-    "Optional Features": { "file": "generators/data/data/optionalfeatures.json", "subtitle": "(Invocations, Infusions, Maneuvers, Fighting Styles, etc.)", "filters": { "featureType": ["EI", "AI", "AS", "ED", "FS:F", "RN", "PB", "MV:B", "MM", "RP"] } },
-    "Psionics": { "file": "generators/data/data/psionics.json", "filters": {} },
-    "Races": { "file": "generators/data/data/races.json", "filters": {} },
+    "Conditions / Diseases": { "file": "generators/data/data/conditionsdiseases.json", "playtestFile": ["generators/data/prerelease/generated/conditions_playtest.json"], "combinedFile": ["generators/data/prerelease/generated/conditions_combined.json"], "filters": { "playtest": ["Official", "Playtest"] } },
+    "Decks": { "file": "generators/data/data/decks.json", "playtestFile": ["generators/data/prerelease/generated/decks_playtest.json"], "combinedFile": ["generators/data/prerelease/generated/decks_combined.json"], "filters": { "playtest": ["Official", "Playtest"] } },
+    "Deities": { "file": "generators/data/data/deities.json", "playtestFile": ["generators/data/prerelease/generated/deities_playtest.json"], "combinedFile": ["generators/data/prerelease/generated/deities_combined.json"], "filters": { "pantheon": ["Celtic", "Dawn War", "Dragonlance", "Drow", "Duergar", "Dwarven", "Eberron", "Egyptian", "Elven", "Exandria", "Faerûnian", "Forgotten Realms", "Gnome", "Gnomish", "Greek", "Greyhawk", "Halfling", "Nonhuman", "Norse", "Orc", "Theros", "Yuan-ti"], "playtest": ["Official", "Playtest"] } },
+    "Feats": { "file": "generators/data/data/feats.json", "playtestFile": ["generators/data/prerelease/generated/feats_playtest.json"], "combinedFile": ["generators/data/prerelease/generated/feats_combined.json"], "filters": { "category": ["General Feat", "Origin Feat", "Epic Boon", "Fighting Style"], "playtest": ["Official", "Playtest"] } },
+    "Items": { "file": "generators/data/data/items.json", "playtestFile": ["generators/data/prerelease/generated/items_playtest.json"], "combinedFile": ["generators/data/prerelease/generated/items_combined.json"], "filters": { "rarity": ["common", "uncommon", "rare", "very rare", "legendary", "artifact", "none"], "attunement": ["yes", "no"], "playtest": ["Official", "Playtest"] } },
+    "Languages": { "file": "generators/data/data/languages.json", "playtestFile": ["generators/data/prerelease/generated/languages_playtest.json"], "combinedFile": ["generators/data/prerelease/generated/languages_combined.json"], "filters": { "type": ["Standard", "Rare"], "playtest": ["Official", "Playtest"] } },
+    "Optional Features": { "file": "generators/data/data/optionalfeatures.json", "subtitle": "(Invocations, Infusions, Maneuvers, Fighting Styles, etc.)", "playtestFile": ["generators/data/prerelease/generated/optionalfeatures_playtest.json"], "combinedFile": ["generators/data/prerelease/generated/optionalfeatures_combined.json"], "filters": { "featureType": ["EI", "AI", "AS", "ED", "FS:F", "RN", "PB", "MV:B", "MM", "RP"], "playtest": ["Official", "Playtest"] } },
+    "Psionics": { "file": "generators/data/data/psionics.json", "playtestFile": ["generators/data/prerelease/generated/psionics_playtest.json"], "combinedFile": ["generators/data/prerelease/generated/psionics_combined.json"], "filters": { "playtest": ["Official", "Playtest"] } },
+    "Races": { "file": "generators/data/data/races.json", "playtestFile": ["generators/data/prerelease/generated/races_playtest.json"], "combinedFile": ["generators/data/prerelease/generated/races_combined.json"], "filters": { "playtest": ["Official", "Playtest"] } },
     "Skills": { "file": "generators/data/data/skills.json", "filters": { "ability": ["str", "dex", "con", "int", "wis", "cha"] } },
-    "Spells": { "file": "generators/data/data/spells/index.json", "filters": { "level": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], "school": ["A", "C", "D", "E", "I", "N", "T", "V"], "classes": ["Artificer", "Bard", "Cleric", "Druid", "Paladin", "Ranger", "Sorcerer", "Warlock", "Wizard"] } },
-    "Vehicles": { "file": "generators/data/data/vehicles.json", "filters": {} }
+    "Spells": { "file": "generators/data/data/spells/index.json", "playtestFile": ["generators/data/prerelease/generated/spells_playtest.json"], "combinedFile": ["generators/data/prerelease/generated/spells_combined.json"], "filters": { "level": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], "school": ["A", "C", "D", "E", "I", "N", "T", "V"], "classes": ["Artificer", "Bard", "Cleric", "Druid", "Paladin", "Ranger", "Sorcerer", "Warlock", "Wizard"], "playtest": ["Official", "Playtest"] } },
+    "Vehicles": { "file": "generators/data/data/vehicles.json", "playtestFile": ["generators/data/prerelease/generated/vehicles_playtest.json"], "combinedFile": ["generators/data/prerelease/generated/vehicles_combined.json"], "filters": { "playtest": ["Official", "Playtest"] } }
 }

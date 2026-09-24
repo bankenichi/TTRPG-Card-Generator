@@ -7,7 +7,13 @@ from urllib.parse import urlparse
 
 # Import the core engine logic
 from card_engine import generate_html, generate_backs_html
-from data_paths import remap_dataset_catalog, translate_served_path
+from data_paths import (
+    remap_dataset_catalog,
+    translate_served_path,
+    resolve_dataset_path,
+    discover_data_root,
+)
+from prerelease_sync import playtest_indexes_ready
 
 # ---------------------------------------------------------------------------
 # ICON DIRECTORY SCANNER
@@ -55,12 +61,29 @@ def get_available_svgs():
 # ---------------------------------------------------------------------------
 # CONTROLLER UI & SERVER
 # ---------------------------------------------------------------------------
+def _paths_exist(files):
+    if not files:
+        return False
+    seq = files if isinstance(files, list) else [files]
+    return any(os.path.exists(resolve_dataset_path(p)) for p in seq)
+
+
 def get_datasets_json():
     path = os.path.join(SCRIPT_DIR, "datasets.json")
     if os.path.exists(path):
         with open(path, 'r', encoding='utf-8') as f:
             catalog = json.load(f)
         remap_dataset_catalog(catalog)
+        root = discover_data_root()
+        ready = bool(root and playtest_indexes_ready(root))
+        for entry in catalog.values():
+            if not isinstance(entry, dict):
+                continue
+            if not ready or not _paths_exist(entry.get("playtestFile")):
+                entry.pop("playtestFile", None)
+                entry.pop("combinedFile", None)
+                if isinstance(entry.get("filters"), dict):
+                    entry["filters"].pop("playtest", None)
         return json.dumps(catalog)
     return "{}"
 
@@ -184,7 +207,7 @@ def get_index_html(svg_options_json):
             "dex": "Dexterity", "con": "Constitution", "int": "Intelligence", "wis": "Wisdom", "cha": "Charisma",
             "EI": "Eldritch Invocations", "AI": "Artificer Infusions", "AS": "Arcane Shots", "ED": "Elemental Disciplines",
             "FS:F": "Fighting Styles", "RN": "Rune Knight Runes", "PB": "Pact Boons", "MV:B": "Battle Master Maneuvers",
-            "MM": "Metamagic", "RP": "Renown Perks", "none": "None / Other", "yes": "Requires Attunement", "no": "No Attunement"
+            "MM": "Metamagic", "RP": "Renown Perks", "none": "None / Other", "yes": "Requires Attunement", "no": "No Attunement", "Official": "Official", "Playtest": "Playtest"
         };
 
         const DATASETS = __DATASETS_JSON__;
@@ -237,7 +260,7 @@ def get_index_html(svg_options_json):
                 Object.entries(data.filters).forEach(([filterKey, filterValues]) => {
                     const catDiv = document.createElement('div');
                     catDiv.className = 'subset-category';
-                    const filterName = filterKey.charAt(0).toUpperCase() + filterKey.slice(1);
+                    const filterName = filterKey === 'playtest' ? 'Content' : (filterKey.charAt(0).toUpperCase() + filterKey.slice(1));
                     catDiv.innerHTML = `<strong>Filter by ${filterName}:</strong>`;
                     
                     const grid = document.createElement('div');
@@ -372,7 +395,6 @@ def get_index_html(svg_options_json):
             
             document.querySelectorAll('.dataset-header input[type="checkbox"]:checked').forEach(cb => {
                 const name = cb.value;
-                const file = DATASETS[name].file;
                 const filterInputs = document.querySelectorAll(`input[data-dataset-name="${name}"]:checked`);
                 
                 const filters = {};
@@ -387,6 +409,21 @@ def get_index_html(svg_options_json):
                         if (DATASETS[name].filters[key] && filters[key].length === DATASETS[name].filters[key].length) {
                             delete filters[key];
                         }
+                    }
+                }
+
+                let file = DATASETS[name].file;
+                const ptSel = filters.playtest;
+                delete filters.playtest;
+                if (DATASETS[name].playtestFile) {
+                    const wantOff = !ptSel || ptSel.includes('Official');
+                    const wantPt = !ptSel || ptSel.includes('Playtest');
+                    if (wantOff && wantPt && DATASETS[name].combinedFile) {
+                        file = DATASETS[name].combinedFile;
+                    } else if (wantPt && !wantOff) {
+                        file = DATASETS[name].playtestFile;
+                    } else {
+                        file = DATASETS[name].file;
                     }
                 }
 
