@@ -418,8 +418,14 @@ def get_index_html(svg_options_json):
                 if (DATASETS[name].playtestFile) {
                     const wantOff = !ptSel || ptSel.includes('Official');
                     const wantPt = !ptSel || ptSel.includes('Playtest');
-                    if (wantOff && wantPt && DATASETS[name].combinedFile) {
-                        file = DATASETS[name].combinedFile;
+                    // Official+Playtest as TWO datasets: engine ds_best dedupes by name
+                    // within a single dataset (card_engine.py), so a merged combined
+                    // stub silently drops same-named playtest/official entities.
+                    // Separate origin files keep both (dedup key includes origin_file).
+                    if (wantOff && wantPt) {
+                        payload.datasets.push({ name, file: DATASETS[name].file, filters: Object.assign({}, filters) });
+                        payload.datasets.push({ name, file: DATASETS[name].playtestFile, filters: Object.assign({}, filters) });
+                        return;
                     } else if (wantPt && !wantOff) {
                         file = DATASETS[name].playtestFile;
                     } else {
