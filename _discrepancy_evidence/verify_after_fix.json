@@ -1,0 +1,45 @@
+{
+  "Races": {
+    "official": 196,
+    "playtest": 95,
+    "sum": 291,
+    "old_combined_stub": 228,
+    "new_dual": 300,
+    "dual_minus_sum": 9,
+    "dual_type_counts": {
+      "Race": 95,
+      "Lineage": 50,
+      "Subrace": 117
+    }
+  },
+  "Classes": {
+    "official": 643,
+    "playtest": 804,
+    "sum": 1447,
+    "old_combined_stub": 1143,
+    "new_dual": 1454,
+    "dual_minus_sum": 7,
+    "dual_type_counts": {
+      "Class Overview": 147,
+      "Artificer Subclass": 18,
+      "Barbarian Subclass": 52,
+      "Bard Subclass": 50,
+      "Cleric Subclass": 74,
+      "Druid Subclass": 48,
+      "Fighter Subclass": 68,
+      "Monk Subclass": 61,
+      "Mystic Subclass": 12,
+      "Paladin Subclass": 46,
+      "Ranger Subclass": 44,
+      "Rogue Subclass": 46,
+      "Sorcerer Subclass": 72,
+      "Warlock Subclass": 68,
+      "Wizard Subclass": 84,
+      "Artificer (Revisited) Subclass": 8,
+      "Ranger (Ambuscade) Subclass": 6,
+      "Ranger (Revised) Subclass": 6,
+      "Psion Subclass": 8,
+      "Generic Subclass": 2
+    }
+  }
+}

@@ -23,6 +23,115 @@ CWD = os.getcwd()
 possible_dirs = [os.path.join(SCRIPT_DIR, "icons"), os.path.join(CWD, "icons")]
 ICON_DIR = next((d for d in possible_dirs if os.path.isdir(d)), possible_dirs[0])
 
+
+def _extract_deck_body_pages(html_text):
+    """Return the .page blocks between <body> and the fit-to-card <script>."""
+    import re
+    m = re.search(r"<body>(.*?)<script>", html_text, re.DOTALL | re.IGNORECASE)
+    return (m.group(1).strip() if m else "")
+
+
+def _merge_deck_html(partial_paths, output_html_path):
+    """Concatenate printable .page blocks from separately generated decks."""
+    if not partial_paths:
+        with open(output_html_path, "w", encoding="utf-8") as f:
+            f.write("<!DOCTYPE html><html><body></body></html>")
+        return
+
+    with open(partial_paths[0], encoding="utf-8") as f:
+        first = f.read()
+
+    head_end = first.lower().find("<body>")
+    if head_end < 0:
+        raise RuntimeError("Deck HTML missing <body>")
+    head = first[: head_end + len("<body>")]
+
+    script_start = first.lower().find("<script>")
+    if script_start < 0:
+        raise RuntimeError("Deck HTML missing <script>")
+    tail = first[script_start:]
+
+    body_parts = []
+    for p in partial_paths:
+        with open(p, encoding="utf-8") as f:
+            html = f.read()
+        chunk = _extract_deck_body_pages(html)
+        if chunk:
+            body_parts.append(chunk)
+
+    with open(output_html_path, "w", encoding="utf-8") as f:
+        f.write(head)
+        f.write("\n")
+        f.write("\n".join(body_parts))
+        f.write("\n")
+        f.write(tail)
+
+
+def generate_html_isolated(payload, output_html_path=None):
+    """Like generate_html, but each datasets[] entry runs in its own pass.
+
+    Shared raw_dict across Official+Playtest in one generate_html call improves
+    _copy / parent-race fill and can inflate page-splits (and even emit cards
+    that a solo playtest run would drop). Isolating restores Combined ==
+    Official + Playtest card counts without touching the engine.
+    """
+    import tempfile
+
+    if output_html_path is None:
+        output_html_path = "Custom_Deck_Cards.html"
+
+    datasets_req = payload.get("datasets", []) or []
+    if len(datasets_req) <= 1:
+        return generate_html(payload, output_html_path=output_html_path)
+
+    partials = []
+    mergeable = []
+    total_cards = 0
+    total_items = 0
+    type_counts = {}
+    try:
+        for i, ds in enumerate(datasets_req):
+            fd, tmp_path = tempfile.mkstemp(prefix=f"deck_part_{i}_", suffix=".html", dir=SCRIPT_DIR)
+            os.close(fd)
+            partials.append(tmp_path)
+            part_payload = {
+                "datasets": [ds],
+                "customAssets": payload.get("customAssets", {}),
+                "selectedAssets": payload.get("selectedAssets", {}),
+            }
+            result = generate_html(part_payload, output_html_path=tmp_path) or {}
+            cc = int(result.get("card_count", 0) or 0)
+            total_cards += cc
+            total_items += int(result.get("item_count", 0) or 0)
+            for k, v in (result.get("type_counts") or {}).items():
+                type_counts[k] = type_counts.get(k, 0) + int(v)
+            # generate_html may return early without writing a full deck
+            if cc > 0 and os.path.getsize(tmp_path) > 0:
+                # Style block is large; scan the file for <body> rather than a tiny prefix.
+                with open(tmp_path, encoding="utf-8") as _hf:
+                    _html = _hf.read()
+                if "<body>" in _html.lower():
+                    mergeable.append(tmp_path)
+
+        if total_cards <= 0 or not mergeable:
+            with open(output_html_path, "w", encoding="utf-8") as f:
+                f.write("<!DOCTYPE html><html><body><p>No cards.</p></body></html>")
+            return {"card_count": 0, "item_count": 0, "type_counts": {}}
+
+        _merge_deck_html(mergeable, output_html_path)
+        return {
+            "card_count": total_cards,
+            "item_count": total_items,
+            "type_counts": type_counts,
+        }
+    finally:
+        for p in partials:
+            try:
+                os.remove(p)
+            except OSError:
+                pass
+
+
 def get_available_svgs():
     bg_files, wm_files, cb_files = [], [], []
     if os.path.isdir(ICON_DIR):
@@ -524,7 +633,7 @@ class GeneratorRequestHandler(SimpleHTTPRequestHandler):
                 payload = json.loads(post_data.decode('utf-8'))
                 output_filename = "Custom_Deck_Cards.html"
                 
-                result = generate_html(payload, output_html_path=output_filename)
+                result = generate_html_isolated(payload, output_html_path=output_filename)
                 
                 self.send_response(200)
                 self.send_header('Content-Type', 'text/html; charset=utf-8')

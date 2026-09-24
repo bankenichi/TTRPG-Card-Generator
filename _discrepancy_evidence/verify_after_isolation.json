@@ -1,0 +1,895 @@
+[
+  {
+    "category": "Races",
+    "before_shared": {
+      "official": 196,
+      "playtest": 95,
+      "sum": 291,
+      "combined": 300,
+      "surplus": 9,
+      "surplus_cards": [
+        {
+          "name": "Elf (Mark of Shadow) 1/2",
+          "base_name": "Elf (Mark of Shadow)",
+          "source": "UADRAGONMARKS p.6",
+          "type": "Subrace",
+          "page_split": "1/2",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Elf (Mark of Shadow) 2/2",
+          "base_name": "Elf (Mark of Shadow)",
+          "source": "UADRAGONMARKS p.6",
+          "type": "Subrace",
+          "page_split": "2/2",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Half-Orc (Variant; Mark of Finding) 1/2",
+          "base_name": "Half-Orc (Variant; Mark of Finding)",
+          "source": "UADRAGONMARKS p.2",
+          "type": "Subrace",
+          "page_split": "1/2",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Half-Orc (Variant; Mark of Finding) 2/2",
+          "base_name": "Half-Orc (Variant; Mark of Finding)",
+          "source": "UADRAGONMARKS p.2",
+          "type": "Subrace",
+          "page_split": "2/2",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Tiefling (Asmodeus)",
+          "base_name": "Tiefling (Asmodeus)",
+          "source": "UAFIENDISHOPTIONS p.1",
+          "type": "Subrace",
+          "page_split": null,
+          "reason": "card_only_with_shared_raw_dict"
+        },
+        {
+          "name": "Tiefling (Abyssal) 1/2",
+          "base_name": "Tiefling (Abyssal)",
+          "source": "UATHATOLDBLACKMAGIC p.1",
+          "type": "Subrace",
+          "page_split": "1/2",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Tiefling (Abyssal) 2/2",
+          "base_name": "Tiefling (Abyssal)",
+          "source": "UATHATOLDBLACKMAGIC p.1",
+          "type": "Subrace",
+          "page_split": "2/2",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Elf (High; Aereni) 1/2",
+          "base_name": "Elf (High; Aereni)",
+          "source": "UAWAYFINDERSGUIDETOEBERRON p.73",
+          "type": "Subrace",
+          "page_split": "1/2",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Elf (High; Aereni) 2/2",
+          "base_name": "Elf (High; Aereni)",
+          "source": "UAWAYFINDERSGUIDETOEBERRON p.73",
+          "type": "Subrace",
+          "page_split": "2/2",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Elf (High; Valenar) 1/2",
+          "base_name": "Elf (High; Valenar)",
+          "source": "UAWAYFINDERSGUIDETOEBERRON p.73",
+          "type": "Subrace",
+          "page_split": "1/2",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Elf (High; Valenar) 2/2",
+          "base_name": "Elf (High; Valenar)",
+          "source": "UAWAYFINDERSGUIDETOEBERRON p.73",
+          "type": "Subrace",
+          "page_split": "2/2",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Elf (Wood; Aereni) 1/2",
+          "base_name": "Elf (Wood; Aereni)",
+          "source": "UAWAYFINDERSGUIDETOEBERRON p.73",
+          "type": "Subrace",
+          "page_split": "1/2",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Elf (Wood; Aereni) 2/2",
+          "base_name": "Elf (Wood; Aereni)",
+          "source": "UAWAYFINDERSGUIDETOEBERRON p.73",
+          "type": "Subrace",
+          "page_split": "2/2",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Elf (Wood; Valenar) 1/2",
+          "base_name": "Elf (Wood; Valenar)",
+          "source": "UAWAYFINDERSGUIDETOEBERRON p.73",
+          "type": "Subrace",
+          "page_split": "1/2",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Elf (Wood; Valenar) 2/2",
+          "base_name": "Elf (Wood; Valenar)",
+          "source": "UAWAYFINDERSGUIDETOEBERRON p.73",
+          "type": "Subrace",
+          "page_split": "2/2",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Elf (Eladrin) 1/2",
+          "base_name": "Elf (Eladrin)",
+          "source": "UAELADRINANDGITH p.1",
+          "type": "Subrace",
+          "page_split": "1/2",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Elf (Eladrin) 2/2",
+          "base_name": "Elf (Eladrin)",
+          "source": "UAELADRINANDGITH p.1",
+          "type": "Subrace",
+          "page_split": "2/2",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        }
+      ],
+      "missing_vs_union": [
+        {
+          "name": "Elf (Mark of Shadow)",
+          "source": "UADRAGONMARKS p.6",
+          "type": "Subrace",
+          "side": "playtest"
+        },
+        {
+          "name": "Half-Orc (Variant; Mark of Finding)",
+          "source": "UADRAGONMARKS p.2",
+          "type": "Subrace",
+          "side": "playtest"
+        },
+        {
+          "name": "Tiefling (Abyssal)",
+          "source": "UATHATOLDBLACKMAGIC p.1",
+          "type": "Subrace",
+          "side": "playtest"
+        },
+        {
+          "name": "Elf (High; Aereni)",
+          "source": "UAWAYFINDERSGUIDETOEBERRON p.73",
+          "type": "Subrace",
+          "side": "playtest"
+        },
+        {
+          "name": "Elf (High; Valenar)",
+          "source": "UAWAYFINDERSGUIDETOEBERRON p.73",
+          "type": "Subrace",
+          "side": "playtest"
+        },
+        {
+          "name": "Elf (Wood; Aereni)",
+          "source": "UAWAYFINDERSGUIDETOEBERRON p.73",
+          "type": "Subrace",
+          "side": "playtest"
+        },
+        {
+          "name": "Elf (Wood; Valenar)",
+          "source": "UAWAYFINDERSGUIDETOEBERRON p.73",
+          "type": "Subrace",
+          "side": "playtest"
+        },
+        {
+          "name": "Elf (Eladrin)",
+          "source": "UAELADRINANDGITH p.1",
+          "type": "Subrace",
+          "side": "playtest"
+        }
+      ],
+      "split_deltas": [
+        {
+          "base_name": "elf (eladrin)",
+          "source": "uaeladrinandgith p.1",
+          "type": "subrace",
+          "official_pages": 0,
+          "playtest_pages": 1,
+          "expected": 1,
+          "dual_pages": 2,
+          "delta": 1,
+          "dual_names": [
+            "Elf (Eladrin) 1/2",
+            "Elf (Eladrin) 2/2"
+          ],
+          "off_names": [],
+          "pt_names": [
+            "Elf (Eladrin)"
+          ]
+        },
+        {
+          "base_name": "elf (high; aereni)",
+          "source": "uawayfindersguidetoeberron p.73",
+          "type": "subrace",
+          "official_pages": 0,
+          "playtest_pages": 1,
+          "expected": 1,
+          "dual_pages": 2,
+          "delta": 1,
+          "dual_names": [
+            "Elf (High; Aereni) 1/2",
+            "Elf (High; Aereni) 2/2"
+          ],
+          "off_names": [],
+          "pt_names": [
+            "Elf (High; Aereni)"
+          ]
+        },
+        {
+          "base_name": "elf (high; valenar)",
+          "source": "uawayfindersguidetoeberron p.73",
+          "type": "subrace",
+          "official_pages": 0,
+          "playtest_pages": 1,
+          "expected": 1,
+          "dual_pages": 2,
+          "delta": 1,
+          "dual_names": [
+            "Elf (High; Valenar) 1/2",
+            "Elf (High; Valenar) 2/2"
+          ],
+          "off_names": [],
+          "pt_names": [
+            "Elf (High; Valenar)"
+          ]
+        },
+        {
+          "base_name": "elf (mark of shadow)",
+          "source": "uadragonmarks p.6",
+          "type": "subrace",
+          "official_pages": 0,
+          "playtest_pages": 1,
+          "expected": 1,
+          "dual_pages": 2,
+          "delta": 1,
+          "dual_names": [
+            "Elf (Mark of Shadow) 1/2",
+            "Elf (Mark of Shadow) 2/2"
+          ],
+          "off_names": [],
+          "pt_names": [
+            "Elf (Mark of Shadow)"
+          ]
+        },
+        {
+          "base_name": "elf (wood; aereni)",
+          "source": "uawayfindersguidetoeberron p.73",
+          "type": "subrace",
+          "official_pages": 0,
+          "playtest_pages": 1,
+          "expected": 1,
+          "dual_pages": 2,
+          "delta": 1,
+          "dual_names": [
+            "Elf (Wood; Aereni) 1/2",
+            "Elf (Wood; Aereni) 2/2"
+          ],
+          "off_names": [],
+          "pt_names": [
+            "Elf (Wood; Aereni)"
+          ]
+        },
+        {
+          "base_name": "elf (wood; valenar)",
+          "source": "uawayfindersguidetoeberron p.73",
+          "type": "subrace",
+          "official_pages": 0,
+          "playtest_pages": 1,
+          "expected": 1,
+          "dual_pages": 2,
+          "delta": 1,
+          "dual_names": [
+            "Elf (Wood; Valenar) 1/2",
+            "Elf (Wood; Valenar) 2/2"
+          ],
+          "off_names": [],
+          "pt_names": [
+            "Elf (Wood; Valenar)"
+          ]
+        },
+        {
+          "base_name": "half-orc (variant; mark of finding)",
+          "source": "uadragonmarks p.2",
+          "type": "subrace",
+          "official_pages": 0,
+          "playtest_pages": 1,
+          "expected": 1,
+          "dual_pages": 2,
+          "delta": 1,
+          "dual_names": [
+            "Half-Orc (Variant; Mark of Finding) 1/2",
+            "Half-Orc (Variant; Mark of Finding) 2/2"
+          ],
+          "off_names": [],
+          "pt_names": [
+            "Half-Orc (Variant; Mark of Finding)"
+          ]
+        },
+        {
+          "base_name": "tiefling (abyssal)",
+          "source": "uathatoldblackmagic p.1",
+          "type": "subrace",
+          "official_pages": 0,
+          "playtest_pages": 1,
+          "expected": 1,
+          "dual_pages": 2,
+          "delta": 1,
+          "dual_names": [
+            "Tiefling (Abyssal) 1/2",
+            "Tiefling (Abyssal) 2/2"
+          ],
+          "off_names": [],
+          "pt_names": [
+            "Tiefling (Abyssal)"
+          ]
+        },
+        {
+          "base_name": "tiefling (asmodeus)",
+          "source": "uafiendishoptions p.1",
+          "type": "subrace",
+          "official_pages": 0,
+          "playtest_pages": 0,
+          "expected": 0,
+          "dual_pages": 1,
+          "delta": 1,
+          "dual_names": [
+            "Tiefling (Asmodeus)"
+          ],
+          "off_names": [],
+          "pt_names": []
+        }
+      ]
+    },
+    "after_isolated": {
+      "combined": 291,
+      "item_count": 261,
+      "delta_vs_sum": 0,
+      "surplus_cards": [],
+      "missing_vs_union": [],
+      "type_counts": {
+        "Race": 95,
+        "Lineage": 50,
+        "Subrace": 116
+      },
+      "parsed_cards": 291
+    }
+  },
+  {
+    "category": "Classes",
+    "before_shared": {
+      "official": 643,
+      "playtest": 804,
+      "sum": 1447,
+      "combined": 1454,
+      "surplus": 7,
+      "surplus_cards": [
+        {
+          "name": "Ranger (Spell-less) 1/7",
+          "base_name": "Ranger (Spell-less)",
+          "source": "UAMODIFYINGCLASSES p.5",
+          "type": "Class Overview",
+          "page_split": "1/7",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Ranger (Spell-less) 2/7",
+          "base_name": "Ranger (Spell-less)",
+          "source": "UAMODIFYINGCLASSES p.5",
+          "type": "Class Overview",
+          "page_split": "2/7",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Ranger (Spell-less) 3/7",
+          "base_name": "Ranger (Spell-less)",
+          "source": "UAMODIFYINGCLASSES p.5",
+          "type": "Class Overview",
+          "page_split": "3/7",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Ranger (Spell-less) 4/7",
+          "base_name": "Ranger (Spell-less)",
+          "source": "UAMODIFYINGCLASSES p.5",
+          "type": "Class Overview",
+          "page_split": "4/7",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Ranger (Spell-less) 5/7",
+          "base_name": "Ranger (Spell-less)",
+          "source": "UAMODIFYINGCLASSES p.5",
+          "type": "Class Overview",
+          "page_split": "5/7",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Ranger (Spell-less) 6/7",
+          "base_name": "Ranger (Spell-less)",
+          "source": "UAMODIFYINGCLASSES p.5",
+          "type": "Class Overview",
+          "page_split": "6/7",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Ranger (Spell-less) 7/7",
+          "base_name": "Ranger (Spell-less)",
+          "source": "UAMODIFYINGCLASSES p.5",
+          "type": "Class Overview",
+          "page_split": "7/7",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Ranger (Revised) 1/6",
+          "base_name": "Ranger (Revised)",
+          "source": "UATHERANGERREVISED p.1",
+          "type": "Class Overview",
+          "page_split": "1/6",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Ranger (Revised) 2/6",
+          "base_name": "Ranger (Revised)",
+          "source": "UATHERANGERREVISED p.1",
+          "type": "Class Overview",
+          "page_split": "2/6",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Ranger (Revised) 3/6",
+          "base_name": "Ranger (Revised)",
+          "source": "UATHERANGERREVISED p.1",
+          "type": "Class Overview",
+          "page_split": "3/6",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Ranger (Revised) 4/6",
+          "base_name": "Ranger (Revised)",
+          "source": "UATHERANGERREVISED p.1",
+          "type": "Class Overview",
+          "page_split": "4/6",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Ranger (Revised) 5/6",
+          "base_name": "Ranger (Revised)",
+          "source": "UATHERANGERREVISED p.1",
+          "type": "Class Overview",
+          "page_split": "5/6",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Ranger (Revised) 6/6",
+          "base_name": "Ranger (Revised)",
+          "source": "UATHERANGERREVISED p.1",
+          "type": "Class Overview",
+          "page_split": "6/6",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Battle Master 1/4",
+          "base_name": "Battle Master",
+          "source": "XUA2023PLAYERSHANDBOOKP7 p.73",
+          "type": "Fighter Subclass",
+          "page_split": "1/4",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Battle Master 2/4",
+          "base_name": "Battle Master",
+          "source": "XUA2023PLAYERSHANDBOOKP7 p.73",
+          "type": "Fighter Subclass",
+          "page_split": "2/4",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Battle Master 3/4",
+          "base_name": "Battle Master",
+          "source": "XUA2023PLAYERSHANDBOOKP7 p.73",
+          "type": "Fighter Subclass",
+          "page_split": "3/4",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Battle Master 4/4",
+          "base_name": "Battle Master",
+          "source": "XUA2023PLAYERSHANDBOOKP7 p.73",
+          "type": "Fighter Subclass",
+          "page_split": "4/4",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Arcane Archer (UA) 1/3",
+          "base_name": "Arcane Archer (UA)",
+          "source": "UAFIGHTER p.1",
+          "type": "Fighter Subclass",
+          "page_split": "1/3",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Arcane Archer (UA) 2/3",
+          "base_name": "Arcane Archer (UA)",
+          "source": "UAFIGHTER p.1",
+          "type": "Fighter Subclass",
+          "page_split": "2/3",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Arcane Archer (UA) 3/3",
+          "base_name": "Arcane Archer (UA)",
+          "source": "UAFIGHTER p.1",
+          "type": "Fighter Subclass",
+          "page_split": "3/3",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Arcane Archer v2 (UA) 1/3",
+          "base_name": "Arcane Archer v2 (UA)",
+          "source": "UAREVISEDSUBCLASSES p.2",
+          "type": "Fighter Subclass",
+          "page_split": "1/3",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Arcane Archer v2 (UA) 2/3",
+          "base_name": "Arcane Archer v2 (UA)",
+          "source": "UAREVISEDSUBCLASSES p.2",
+          "type": "Fighter Subclass",
+          "page_split": "2/3",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Arcane Archer v2 (UA) 3/3",
+          "base_name": "Arcane Archer v2 (UA)",
+          "source": "UAREVISEDSUBCLASSES p.2",
+          "type": "Fighter Subclass",
+          "page_split": "3/3",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Arcane Archer 1/3",
+          "base_name": "Arcane Archer",
+          "source": "XUA2025ARCANESUBCLASSES p.2",
+          "type": "Fighter Subclass",
+          "page_split": "1/3",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Arcane Archer 2/3",
+          "base_name": "Arcane Archer",
+          "source": "XUA2025ARCANESUBCLASSES p.2",
+          "type": "Fighter Subclass",
+          "page_split": "2/3",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        },
+        {
+          "name": "Arcane Archer 3/3",
+          "base_name": "Arcane Archer",
+          "source": "XUA2025ARCANESUBCLASSES p.2",
+          "type": "Fighter Subclass",
+          "page_split": "3/3",
+          "reason": "extra_page_split_from_shared_raw_dict"
+        }
+      ],
+      "missing_vs_union": [
+        {
+          "name": "Ranger (Spell-less) 1/6",
+          "source": "UAMODIFYINGCLASSES p.5",
+          "type": "Class Overview",
+          "side": "playtest"
+        },
+        {
+          "name": "Ranger (Spell-less) 2/6",
+          "source": "UAMODIFYINGCLASSES p.5",
+          "type": "Class Overview",
+          "side": "playtest"
+        },
+        {
+          "name": "Ranger (Spell-less) 3/6",
+          "source": "UAMODIFYINGCLASSES p.5",
+          "type": "Class Overview",
+          "side": "playtest"
+        },
+        {
+          "name": "Ranger (Spell-less) 4/6",
+          "source": "UAMODIFYINGCLASSES p.5",
+          "type": "Class Overview",
+          "side": "playtest"
+        },
+        {
+          "name": "Ranger (Spell-less) 5/6",
+          "source": "UAMODIFYINGCLASSES p.5",
+          "type": "Class Overview",
+          "side": "playtest"
+        },
+        {
+          "name": "Ranger (Spell-less) 6/6",
+          "source": "UAMODIFYINGCLASSES p.5",
+          "type": "Class Overview",
+          "side": "playtest"
+        },
+        {
+          "name": "Ranger (Revised) 1/5",
+          "source": "UATHERANGERREVISED p.1",
+          "type": "Class Overview",
+          "side": "playtest"
+        },
+        {
+          "name": "Ranger (Revised) 2/5",
+          "source": "UATHERANGERREVISED p.1",
+          "type": "Class Overview",
+          "side": "playtest"
+        },
+        {
+          "name": "Ranger (Revised) 3/5",
+          "source": "UATHERANGERREVISED p.1",
+          "type": "Class Overview",
+          "side": "playtest"
+        },
+        {
+          "name": "Ranger (Revised) 4/5",
+          "source": "UATHERANGERREVISED p.1",
+          "type": "Class Overview",
+          "side": "playtest"
+        },
+        {
+          "name": "Ranger (Revised) 5/5",
+          "source": "UATHERANGERREVISED p.1",
+          "type": "Class Overview",
+          "side": "playtest"
+        },
+        {
+          "name": "Battle Master 1/2",
+          "source": "XUA2023PLAYERSHANDBOOKP7 p.73",
+          "type": "Fighter Subclass",
+          "side": "playtest"
+        },
+        {
+          "name": "Battle Master 2/2",
+          "source": "XUA2023PLAYERSHANDBOOKP7 p.73",
+          "type": "Fighter Subclass",
+          "side": "playtest"
+        },
+        {
+          "name": "Arcane Archer (UA) 1/2",
+          "source": "UAFIGHTER p.1",
+          "type": "Fighter Subclass",
+          "side": "playtest"
+        },
+        {
+          "name": "Arcane Archer (UA) 2/2",
+          "source": "UAFIGHTER p.1",
+          "type": "Fighter Subclass",
+          "side": "playtest"
+        },
+        {
+          "name": "Arcane Archer v2 (UA) 1/2",
+          "source": "UAREVISEDSUBCLASSES p.2",
+          "type": "Fighter Subclass",
+          "side": "playtest"
+        },
+        {
+          "name": "Arcane Archer v2 (UA) 2/2",
+          "source": "UAREVISEDSUBCLASSES p.2",
+          "type": "Fighter Subclass",
+          "side": "playtest"
+        },
+        {
+          "name": "Arcane Archer 1/2",
+          "source": "XUA2025ARCANESUBCLASSES p.2",
+          "type": "Fighter Subclass",
+          "side": "playtest"
+        },
+        {
+          "name": "Arcane Archer 2/2",
+          "source": "XUA2025ARCANESUBCLASSES p.2",
+          "type": "Fighter Subclass",
+          "side": "playtest"
+        }
+      ],
+      "split_deltas": [
+        {
+          "base_name": "arcane archer",
+          "source": "xua2025arcanesubclasses p.2",
+          "type": "fighter subclass",
+          "official_pages": 0,
+          "playtest_pages": 3,
+          "expected": 3,
+          "dual_pages": 4,
+          "delta": 1,
+          "dual_names": [
+            "Arcane Archer",
+            "Arcane Archer 1/3",
+            "Arcane Archer 2/3",
+            "Arcane Archer 3/3"
+          ],
+          "off_names": [],
+          "pt_names": [
+            "Arcane Archer",
+            "Arcane Archer 1/2",
+            "Arcane Archer 2/2"
+          ]
+        },
+        {
+          "base_name": "arcane archer (ua)",
+          "source": "uafighter p.1",
+          "type": "fighter subclass",
+          "official_pages": 0,
+          "playtest_pages": 3,
+          "expected": 3,
+          "dual_pages": 4,
+          "delta": 1,
+          "dual_names": [
+            "Arcane Archer (UA)",
+            "Arcane Archer (UA) 1/3",
+            "Arcane Archer (UA) 2/3",
+            "Arcane Archer (UA) 3/3"
+          ],
+          "off_names": [],
+          "pt_names": [
+            "Arcane Archer (UA)",
+            "Arcane Archer (UA) 1/2",
+            "Arcane Archer (UA) 2/2"
+          ]
+        },
+        {
+          "base_name": "arcane archer v2 (ua)",
+          "source": "uarevisedsubclasses p.2",
+          "type": "fighter subclass",
+          "official_pages": 0,
+          "playtest_pages": 3,
+          "expected": 3,
+          "dual_pages": 4,
+          "delta": 1,
+          "dual_names": [
+            "Arcane Archer v2 (UA)",
+            "Arcane Archer v2 (UA) 1/3",
+            "Arcane Archer v2 (UA) 2/3",
+            "Arcane Archer v2 (UA) 3/3"
+          ],
+          "off_names": [],
+          "pt_names": [
+            "Arcane Archer v2 (UA)",
+            "Arcane Archer v2 (UA) 1/2",
+            "Arcane Archer v2 (UA) 2/2"
+          ]
+        },
+        {
+          "base_name": "battle master",
+          "source": "xua2023playershandbookp7 p.73",
+          "type": "fighter subclass",
+          "official_pages": 0,
+          "playtest_pages": 3,
+          "expected": 3,
+          "dual_pages": 5,
+          "delta": 2,
+          "dual_names": [
+            "Battle Master",
+            "Battle Master 1/4",
+            "Battle Master 2/4",
+            "Battle Master 3/4",
+            "Battle Master 4/4"
+          ],
+          "off_names": [],
+          "pt_names": [
+            "Battle Master",
+            "Battle Master 1/2",
+            "Battle Master 2/2"
+          ]
+        },
+        {
+          "base_name": "ranger (revised)",
+          "source": "uatherangerrevised p.1",
+          "type": "class overview",
+          "official_pages": 0,
+          "playtest_pages": 8,
+          "expected": 8,
+          "dual_pages": 9,
+          "delta": 1,
+          "dual_names": [
+            "Ranger (Revised)",
+            "Ranger (Revised)",
+            "Ranger (Revised)",
+            "Ranger (Revised) 1/6",
+            "Ranger (Revised) 2/6",
+            "Ranger (Revised) 3/6",
+            "Ranger (Revised) 4/6",
+            "Ranger (Revised) 5/6",
+            "Ranger (Revised) 6/6"
+          ],
+          "off_names": [],
+          "pt_names": [
+            "Ranger (Revised)",
+            "Ranger (Revised)",
+            "Ranger (Revised)",
+            "Ranger (Revised) 1/5",
+            "Ranger (Revised) 2/5",
+            "Ranger (Revised) 3/5",
+            "Ranger (Revised) 4/5",
+            "Ranger (Revised) 5/5"
+          ]
+        },
+        {
+          "base_name": "ranger (spell-less)",
+          "source": "uamodifyingclasses p.5",
+          "type": "class overview",
+          "official_pages": 0,
+          "playtest_pages": 8,
+          "expected": 8,
+          "dual_pages": 9,
+          "delta": 1,
+          "dual_names": [
+            "Ranger (Spell-less)",
+            "Ranger (Spell-less)",
+            "Ranger (Spell-less) 1/7",
+            "Ranger (Spell-less) 2/7",
+            "Ranger (Spell-less) 3/7",
+            "Ranger (Spell-less) 4/7",
+            "Ranger (Spell-less) 5/7",
+            "Ranger (Spell-less) 6/7",
+            "Ranger (Spell-less) 7/7"
+          ],
+          "off_names": [],
+          "pt_names": [
+            "Ranger (Spell-less)",
+            "Ranger (Spell-less)",
+            "Ranger (Spell-less) 1/6",
+            "Ranger (Spell-less) 2/6",
+            "Ranger (Spell-less) 3/6",
+            "Ranger (Spell-less) 4/6",
+            "Ranger (Spell-less) 5/6",
+            "Ranger (Spell-less) 6/6"
+          ]
+        }
+      ]
+    },
+    "after_isolated": {
+      "combined": 1447,
+      "item_count": 920,
+      "delta_vs_sum": 0,
+      "surplus_cards": [],
+      "missing_vs_union": [],
+      "type_counts": {
+        "Class Overview": 147,
+        "Artificer Subclass": 18,
+        "Barbarian Subclass": 52,
+        "Bard Subclass": 50,
+        "Cleric Subclass": 74,
+        "Druid Subclass": 48,
+        "Fighter Subclass": 68,
+        "Monk Subclass": 61,
+        "Mystic Subclass": 12,
+        "Paladin Subclass": 46,
+        "Ranger Subclass": 44,
+        "Rogue Subclass": 46,
+        "Sorcerer Subclass": 72,
+        "Warlock Subclass": 68,
+        "Wizard Subclass": 84,
+        "Artificer (Revisited) Subclass": 8,
+        "Ranger (Ambuscade) Subclass": 6,
+        "Ranger (Revised) Subclass": 6,
+        "Psion Subclass": 8,
+        "Generic Subclass": 2
+      },
+      "parsed_cards": 1447
+    }
+  }
+]
