@@ -205,6 +205,10 @@ def _format_speed(speed_val):
     if isinstance(speed_val, dict):
         parts = []
         for k, v in speed_val.items():
+            if k == 'canHover': continue
+            if isinstance(v, bool):
+                if v: parts.append(f"{k} equal to walking speed")
+                continue
             if k == 'walk': parts.append(f"{v} ft.")
             elif k == 'choose':
                 c = v.get('from', [])
@@ -346,13 +350,6 @@ def enrich_monster(item, type_map=None, all_raw=None):
         cr_base = str(cr_raw)
         cr_lair = ""
 
-    # 3. Dynamic Lair CR Injection for older datasets missing explicit properties
-    if not cr_lair and not xp_lair and has_lair_actions:
-        try:
-            cr_lair = str(int(cr_base) + 1)
-        except ValueError:
-            pass
-
     # 4. Resolve cross-references for XP/CR values
     if xp_lair and not cr_lair:
         for k, v in XP_MAP.items():
@@ -393,7 +390,7 @@ def enrich_monster(item, type_map=None, all_raw=None):
     item['rarity_badge'] = f"CR {cr_base}"
     
     entries = []
-    xp_base = XP_MAP.get(str(cr_base), 0)
+    xp_base = cr_raw.get('xp', XP_MAP.get(str(cr_base), 0)) if isinstance(cr_raw, dict) else XP_MAP.get(str(cr_base), 0)
     pb_val = _calculate_pb(cr_base)
 
     try:
@@ -477,13 +474,18 @@ def enrich_monster(item, type_map=None, all_raw=None):
                 entries.append({"type": "nested_header", "name": title})
             
             if key == 'legendary':
-                creature_name = str(item.get('name', 'the creature')).lower()
-                legendary_desc = (
-                    f"Legendary Action Uses: 3 (4 in Lair). Immediately after another creature's turn, "
-                    f"the {creature_name} can expend a use to take one of the following actions. "
-                    f"The {creature_name} regains all expended uses at the start of each of its turns."
-                )
-                entries.append(legendary_desc)
+                if item.get('legendaryHeader'):
+                    entries.extend(item['legendaryHeader'])
+                else:
+                    creature_name = str(item.get('name', 'the creature')).lower()
+                    count = item.get('legendaryActions', 3)
+                    lair = item.get('legendaryActionsLair')
+                    uses = str(count) + (f" ({lair} in Lair)" if lair is not None else "")
+                    entries.append(
+                        f"Legendary Action Uses: {uses}. Immediately after another creature's turn, "
+                        f"the {creature_name} can expend a use to take one of the following actions. "
+                        f"The {creature_name} regains all expended uses at the start of each of its turns."
+                    )
 
             if has_standard_items:
                 for act in item[key]:

@@ -1,8 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
-  <path d="M12,60 L40,68 L68,60 L64,48 L40,56 L16,48 Z" fill="none" stroke="#5a4a2f" stroke-width="2.2" stroke-linejoin="round"/>
-  <path d="M16,48 Q40,60 40,56 Q40,60 64,48" fill="none" stroke="#5a4a2f" stroke-width="2" stroke-linecap="round"/>
-  <line x1="40" y1="68" x2="40" y2="44" stroke="#5a4a2f" stroke-width="1.5" stroke-linecap="round"/>
-  <circle cx="40" cy="28" r="16" fill="none" stroke="#5a4a2f" stroke-width="1.5" stroke-dasharray="3 3"/>
-  <path d="M40,6 L44,22 L60,28 L44,32 L40,50 L36,32 L20,28 L36,22 Z" fill="none" stroke="#5a4a2f" stroke-width="2.2" stroke-linejoin="round"/>
-  <path d="M40,6 V50 M20,28 H60" fill="none" stroke="#5a4a2f" stroke-width="1.5" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80" fill="none" stroke="black" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M22 18H58Q66 18 66 26V30H53M22 18Q14 18 14 26V31H26V60Q26 68 34 68H59Q65 68 65 61V57H35M34 68Q26 68 26 60M51 53L69 13Q56 13 49 28L42 47ZM42 47L38 59M50 31L58 27"/>
 </svg>

@@ -1,5 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
+cd /d "%~dp0"
+set "PYTHONNOUSERSITE=1"
 
 echo ==============================================
 echo TTRPG Card Generator Installer
@@ -12,10 +14,10 @@ set "PYTHON_URL=https://www.python.org/ftp/python/3.14.1/python-3.14.1-embed-amd
 set "GET_PIP_URL=https://bootstrap.pypa.io/get-pip.py"
 
 :: Portable Git settings
-set "GIT_DIR=%CD%\git-portable"
+set "PORTABLE_GIT_DIR=%CD%\git-portable"
 set "GIT_ZIP=PortableGit.7z.exe"
 set "GIT_URL=https://github.com/git-for-windows/git/releases/download/v2.45.2.windows.1/PortableGit-2.45.2-64-bit.7z.exe"
-set "GIT_EXE=%GIT_DIR%\bin\git.exe"
+set "GIT_EXE=%PORTABLE_GIT_DIR%\bin\git.exe"
 
 echo.
 echo [1/4] Checking for Git...
@@ -32,16 +34,16 @@ if !ERRORLEVEL! EQU 0 (
         powershell -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (New-Object Net.WebClient).DownloadFile('%GIT_URL%', '%GIT_ZIP%')"
         IF !ERRORLEVEL! NEQ 0 (
             echo Failed to download portable Git. Please check your internet connection.
-            pause
+            if /i not "%TTRPG_INSTALL_HEADLESS%"=="1" pause
             exit /b 1
         )
 
         echo Extracting portable Git ^(this may take a moment^)...
-        mkdir "%GIT_DIR%"
-        "%GIT_ZIP%" -o"%GIT_DIR%" -y >nul 2>&1
+        mkdir "%PORTABLE_GIT_DIR%"
+        powershell -NoProfile -Command "$arg='-o'+[char]34+$env:PORTABLE_GIT_DIR+[char]34; $p=Start-Process -FilePath (Join-Path (Get-Location) $env:GIT_ZIP) -ArgumentList @($arg,'-y') -WindowStyle Hidden -Wait -PassThru; exit $p.ExitCode"
         IF !ERRORLEVEL! NEQ 0 (
             echo Failed to extract portable Git.
-            pause
+            if /i not "%TTRPG_INSTALL_HEADLESS%"=="1" pause
             exit /b 1
         )
 
@@ -50,7 +52,7 @@ if !ERRORLEVEL! EQU 0 (
 
         IF NOT EXIST "%GIT_EXE%" (
             echo Could not locate git.exe after extraction. Setup cannot continue.
-            pause
+            if /i not "%TTRPG_INSTALL_HEADLESS%"=="1" pause
             exit /b 1
         )
 
@@ -84,7 +86,7 @@ IF NOT EXIST "%PYTHON_DIR%\python.exe" (
     del get-pip.py
 ) ELSE (
     echo Standalone Python environment already exists.
-    findstr /c:".." "%PYTHON_DIR%\python314._pth" >nul
+    findstr /x /l /c:".." "%PYTHON_DIR%\python314._pth" >nul
     if errorlevel 1 (
         echo .. >> "%PYTHON_DIR%\python314._pth"
     )
@@ -97,7 +99,7 @@ IF NOT EXIST ".git" (
     "%GIT_CMD%" clone https://github.com/bankenichi/TTRPG-Card-Generator temp_gen
     IF !ERRORLEVEL! NEQ 0 (
         echo Failed to clone the generator repository!
-        pause
+        if /i not "%TTRPG_INSTALL_HEADLESS%"=="1" pause
         exit /b 1
     )
     echo Moving files...
@@ -109,4 +111,9 @@ IF NOT EXIST ".git" (
 
 echo.
 echo [4/4] Handing over to GUI Installer...
-"%PYTHON_DIR%\python.exe" gui_installer.py
+if /i "%TTRPG_INSTALL_HEADLESS%"=="1" (
+    "%PYTHON_DIR%\python.exe" gui_installer.py --headless
+) else (
+    "%PYTHON_DIR%\python.exe" gui_installer.py
+)
+exit /b %ERRORLEVEL%

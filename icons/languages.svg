@@ -1,12 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
-  <!-- Scroll body -->
-  <rect x="18" y="22" width="44" height="36" rx="2" fill="none" stroke="#5a4a2f" stroke-width="2.2"/>
-  <!-- Scroll roll top -->
-  <ellipse cx="40" cy="22" rx="22" ry="5" fill="none" stroke="#5a4a2f" stroke-width="2"/>
-  <!-- Scroll roll bottom -->
-  <ellipse cx="40" cy="58" rx="22" ry="5" fill="none" stroke="#5a4a2f" stroke-width="2"/>
-  <!-- Text lines -->
-  <line x1="26" y1="32" x2="54" y2="32" stroke="#5a4a2f" stroke-width="1.4" stroke-linecap="round"/>
-  <line x1="26" y1="38" x2="54" y2="38" stroke="#5a4a2f" stroke-width="1.4" stroke-linecap="round"/>
-  <line x1="26" y1="44" x2="46" y2="44" stroke="#5a4a2f" stroke-width="1.4" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80" fill="none" stroke="black" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M10 15H55V45H29L17 55V45H10ZM27 23L18 38M27 23L36 38M22 33H32M60 30H70V61H61V71L48 61H35V51"/><path d="M47 52H61M50 46L60 56"/>
 </svg>

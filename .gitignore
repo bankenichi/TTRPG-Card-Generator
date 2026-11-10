@@ -9,3 +9,11 @@ test_dict2.py
 test_dict.py
 install.lock
 /.idea/
+/.pdf-jobs/
+/output/
+*.pdf
+*.lnk
+
+/pdf-browser/
+/git-portable/
+/PortableGit.7z.exe

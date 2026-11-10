@@ -11,6 +11,9 @@ Whether you need spell cards, item cards, class features, or many others, this g
 * **Custom Visual Overrides:** Easily swap out card backgrounds, watermarks, and card backs. The UI automatically scans your `icons` folder for available SVGs to choose from, or you can upload your own custom `.svg` files directly through the web interface.
 * **Printable Card Backs:** Generate perfectly sized, 3x3 grid pages of card backs with a single click, ready to be printed on the reverse side of your decks.
 * **Dynamic Formatting:** Don't worry about long text walls. The engine intelligently calculates text length and table sizes, automatically splitting massive class features or complex spell descriptions across multiple consecutive cards.
+* **Direct PDF Export:** Export one compact PDF from the same fitted HTML, with searchable vector text and shared graphics. Cards retain their 2.5" × 3.5" size on Letter paper. Physical sheets render in isolated background jobs to avoid Chromium's multi-sheet mask artifacts. The exporter checks layout, text, symbols, page dimensions, and drawing commands throughout assembly.
+* **Large Deck Previews:** HTML previews load at most 20 sheets and provide links between batches. Distinct mechanical item variants retain their own cards.
+* **Compact Source Labels:** The controller uses the data's supplied source abbreviations (for example `XUA22CRS`) and shows full source titles/IDs on hover. This formatting pass leaves the card engine's sizing, splitting, and fitting logic unchanged.
 * **Zero Dependencies Required:** You don't need Python or Git installed on your system. The installer automatically downloads a portable, isolated Python 3.14 environment specifically for this tool.
 * **Always Up to Date:** The installer sets up the environment, and the launcher allows you to pull the latest data from your chosen source.
 
@@ -19,7 +22,7 @@ Whether you need spell cards, item cards, class features, or many others, this g
 This tool is designed to run on **Windows** and requires an active internet connection for the initial setup.
 
 1. Download **`install.bat`** and run it.
-2. The installer will set up a portable Python environment.
+2. The installer will set up a portable Python environment, PDF dependencies, and a pinned Chromium renderer in `pdf-browser/`. Existing user Python packages are excluded. Initial setup requires additional download space for Chromium.
 3. Once finished, it will launch the **TTRPG Card Generator Setup**.
 4. Provide a Git URL or a local ZIP path to your data source.
 5. Use **`launch.bat`** anytime to start the generator.
@@ -33,14 +36,21 @@ This tool is designed to run on **Windows** and requires an active internet conn
 5. Click **Generate Deck** to create your cards.
 6. Once complete, click the **Open Custom Deck** button. Your cards will open in a new tab as `Custom_Deck_Cards.html`.
 7. **Generate Card Backs (Optional):** Need backs for your printed cards? Click **Generate Backs** to create a printable 3x3 grid of your selected card back design.
+8. **Export PDF:** Click **Export PDF** beside the generated deck or backs. Progress appears in the controller, followed by a download link for the complete PDF. The exporter takes a snapshot, so generating another deck cannot change an export already running.
 
 ##  Printing Instructions
-The output HTML is optimized for standard US Letter (8.5" x 11") printing.
+For large decks, use **Export PDF** and print the downloaded PDF at **Actual size / 100%**, on Letter paper, without fitting or shrinking. The complete PDF shares repeated backgrounds, masks, and fonts instead of storing a screenshot of every sheet. Text remains searchable and sharp when zoomed.
+
+The output HTML is also optimized for standard US Letter (8.5" x 11") printing. Browser printing prints the currently loaded batch.
 * Press `Ctrl + P` in your browser.
 * Set Paper Size to **Letter**.
 * Set Margins to **None**.
 * Make sure **Background graphics** are enabled so the card borders and icons print correctly.
 * Save to PDF (might take a long time or timeout, depending on how many cards are being generated and printed at once) or print directly to cardstock!
+
+Export reports an error if content overflows a card, printing changes the fitted layout, physical sheet/card dimensions change, or text/symbols/drawing commands change during assembly. Native PDF glyph rasterization can differ slightly from browser screenshot antialiasing; layout verification is separate from pixel equality.
+
+For unattended setup/testing, set `TTRPG_INSTALL_HEADLESS=1` before running `install.bat`. Set `TTRPG_NO_BROWSER=1` to start servers without opening browser windows. Normal launches require no environment settings.
 
 ##  Troubleshooting
 

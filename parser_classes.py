@@ -327,6 +327,7 @@ def resolve_feature_entries(entries, opt_index, all_features=None):
 
             ref_subclass = ""
             ref_source = ""
+            ref_level = parts[5 if is_subclass_ref else 3] if len(parts) > (5 if is_subclass_ref else 3) else ""
 
             # Robustly parse 5etools pipe syntax
             if is_subclass_ref:
@@ -348,6 +349,7 @@ def resolve_feature_entries(entries, opt_index, all_features=None):
                     f_source = str(f.get('source', '')).strip().upper()
 
                     if f_name == ref_name and (not ref_source or f_source == ref_source):
+                        if ref_level and str(f.get("level", "")) != ref_level: continue
                         f_class = str(f.get('className', '')).strip().lower()
                         if ref_class and f_class != ref_class: continue
 
@@ -682,6 +684,7 @@ def enrich_class(item, type_map=None, all_raw=None):
                     f_source = str(f.get('source', '')).strip().upper()
 
                     if f_name == ref_name and (not ref_source or f_source == ref_source):
+                        if level and str(f.get("level", "")) != str(level): continue
                         if str(f.get('className', '')).lower().strip() == class_name and \
                                 str(f.get('classSource', '')).upper().strip() == class_source:
                             target = f
@@ -748,6 +751,7 @@ def enrich_subclass(item, type_map=None, all_raw=None):
                     f_source = str(f.get('source', '')).strip().upper()
 
                     if f_name == ref_name and (not ref_source or f_source == ref_source):
+                        if level and str(f.get("level", "")) != str(level): continue
                         if str(f.get('className', '')).lower().strip() == class_name and \
                                 str(f.get('subclassShortName', '')).lower().strip() == subclass_short_name:
                             target = f

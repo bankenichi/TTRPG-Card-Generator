@@ -1,0 +1,4 @@
+document.getElementById('finish-button').addEventListener('click',async()=>{
+  const button=document.getElementById('finish-button'),status=document.getElementById('installer-status');button.disabled=true;status.hidden=false;status.classList.add('busy');status.textContent='Finishing installation…';
+  try{const response=await fetch('/finish?shortcut='+document.getElementById('desktop-shortcut').checked,{method:'POST'});const result=await response.json();if(!response.ok||!result.success)throw new Error(result.message||'Setup could not finish.');status.classList.remove('busy');status.textContent='Installation complete. Data setup is opening in a new window.';}catch(error){button.disabled=false;status.classList.remove('busy');status.classList.add('error');status.textContent=error.message;}
+});

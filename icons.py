@@ -12,18 +12,27 @@ ICON_MAP = {
     "bastions": "bastions",
     "facility": "bastions",
     "bestiary": "bestiary",
+    "monster": "bestiary",
+    "monsters": "bestiary",
     "class": "classes",
     "classes": "classes",
     "condition": "conditions-diseases",
     "conditions": "conditions-diseases",
     "disease": "conditions-diseases",
+    "diseases": "conditions-diseases",
+    "status": "conditions-diseases",
     "deck": "decks",
+    "decks": "decks",
+    "card": "decks",
+    "cards": "decks",
     "deity": "deities",
+    "deities": "deities",
     "feat": "feats",
     "feats": "feats",
     "item": "items",
     "items": "items",
     "language": "languages",
+    "languages": "languages",
     "psionic": "psionics",
     "psionics": "psionics",
     "race": "races",
@@ -35,11 +44,18 @@ ICON_MAP = {
     "spells": "spells",
     "vehicle": "vehicles",
     "vehicles": "vehicles",
+    "vehicleupgrade": "vehicle-upgrades",
+    "vehicle upgrade": "vehicle-upgrades",
+    "vehicle upgrades": "vehicle-upgrades",
+    "supernatural gift": "supernatural-gifts",
+    "supernatural gifts": "supernatural-gifts",
     "skill": "skills",
     "skills": "skills",
     
     # Meta Labels (Optional Features & Specifics)
     "optional feature": "optionalfeatures",
+    "optional features": "optionalfeatures",
+    "optionalfeature": "optionalfeatures",
     "optionalfeatures": "optionalfeatures",
     "maneuver": "maneuvers",
     "metamagic": "metamagic",
@@ -65,13 +81,16 @@ ICON_MAP = {
     "rogue": "rogue",
     "sorcerer": "sorcerer",
     "warlock": "warlock",
-    "wizard": "wizard"
+    "wizard": "wizard",
+    "psion": "psion",
+    "mystic": "mystic",
+    "sidekick": "sidekick"
 }
 
 CORE_CLASSES = [
     "artificer", "barbarian", "bard", "cleric", "druid", 
     "fighter", "monk", "paladin", "ranger", "rogue", 
-    "sorcerer", "warlock", "wizard"
+    "sorcerer", "warlock", "wizard", "psion", "mystic", "sidekick"
 ]
 
 def resolve_card_icon_name(item, dataset_filename):

@@ -1,3 +1,16 @@
+from parser_utils import PRE_FILTER_HOOKS
+
+
+def _category(item, primary_file=None, all_raw=None):
+    code = str(item.get('category', ''))
+    item['category'] = {'O': 'Origin Feat', 'EB': 'Epic Boon'}.get(
+        code, 'Fighting Style' if code.startswith('FS') else 'General Feat')
+
+
+PRE_FILTER_HOOKS['feat'] = _category
+PRE_FILTER_HOOKS['feats'] = _category
+
+
 def enrich_feat(item, type_map=None):
     """
     Specific parsing and enrichment for Feats.
@@ -7,15 +20,15 @@ def enrich_feat(item, type_map=None):
     # Determine Feat Category and Theme Colors
     cat = item.get('category', '')
     
-    if cat == 'O': 
+    if cat in ('O', 'Origin Feat'):
         meta = "Origin Feat"
         pc = "#2E7D32"  # Forest Green
         bc = "#E8F5E9"
-    elif cat == 'EB': 
+    elif cat in ('EB', 'Epic Boon'):
         meta = "Epic Boon"
         pc = "#6A1B9A"  # Deep Purple
         bc = "#F3E5F5"
-    elif str(cat).startswith('FS'): 
+    elif str(cat).startswith('FS') or cat == 'Fighting Style':
         meta = "Fighting Style"
         pc = "#C62828"  # Crimson Red
         bc = "#FFEBEE"

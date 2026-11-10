@@ -1,21 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
-  <!-- Outer ring -->
-  <circle cx="40" cy="40" r="28" fill="none" stroke="#5a4a2f" stroke-width="2.2"/>
-  <!-- Four elemental quadrant symbols -->
-  <!-- FIRE (top) - upward triangle -->
-  <polygon points="40,14 46,26 34,26" fill="none" stroke="#5a4a2f" stroke-width="1.8" stroke-linejoin="round"/>
-  <!-- WATER (bottom) - downward triangle -->
-  <polygon points="40,66 46,54 34,54" fill="none" stroke="#5a4a2f" stroke-width="1.8" stroke-linejoin="round"/>
-  <!-- AIR (right) - upward tri with line -->
-  <polygon points="62,40 54,34 54,46" fill="none" stroke="#5a4a2f" stroke-width="1.8" stroke-linejoin="round"/>
-  <line x1="54" y1="40" x2="57" y2="40" stroke="#5a4a2f" stroke-width="1.4"/>
-  <!-- EARTH (left) - downward tri with line -->
-  <polygon points="18,40 26,34 26,46" fill="none" stroke="#5a4a2f" stroke-width="1.8" stroke-linejoin="round"/>
-  <line x1="26" y1="40" x2="23" y2="40" stroke="#5a4a2f" stroke-width="1.4"/>
-  <!-- Center cross -->
-  <circle cx="40" cy="40" r="5" fill="none" stroke="#5a4a2f" stroke-width="1.6"/>
-  <line x1="40" y1="28" x2="40" y2="35" stroke="#5a4a2f" stroke-width="1.4"/>
-  <line x1="40" y1="45" x2="40" y2="52" stroke="#5a4a2f" stroke-width="1.4"/>
-  <line x1="28" y1="40" x2="35" y2="40" stroke="#5a4a2f" stroke-width="1.4"/>
-  <line x1="45" y1="40" x2="52" y2="40" stroke="#5a4a2f" stroke-width="1.4"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80" fill="none" stroke="black" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M40 10C50 21 50 29 40 36C30 29 30 21 40 10ZM70 40C59 50 51 50 44 40C51 30 59 30 70 40ZM40 70C30 59 30 51 40 44C50 51 50 59 40 70ZM10 40C21 30 29 30 36 40C29 50 21 50 10 40Z"/>
 </svg>

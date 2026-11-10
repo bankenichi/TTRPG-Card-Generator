@@ -1,6 +1,7 @@
 import os
 import json
 import copy
+from html import escape
 from parser_utils import PRE_FILTER_HOOKS
 
 SCHOOL_MAP = {
@@ -107,7 +108,7 @@ def enrich_spell(item, type_map=None):
 
     # Upper right badge: Spell Level number only
     level = item.get('level', 0)
-    item['rarity_badge'] = f'<span style="color: {pc}; font-weight: 900;">{level}</span>'
+    item['rarity_badge'] = f'<span style="color: {pc}; font-weight: 900;">{escape(str(level))}</span>'
 
     # Header Subtitle: School ONLY
     item['meta_left'] = school_name
@@ -118,6 +119,8 @@ def enrich_spell(item, type_map=None):
     
     classes = []
     # 1. Base item classes
+    if isinstance(item.get('classes'), list):
+        classes.extend(c for c in item['classes'] if isinstance(c, str))
     if 'class' in item and isinstance(item['class'], list):
         classes.extend([c.get('name') for c in item['class'] if c.get('name')])
     if 'classVariant' in item and isinstance(item['classVariant'], list):

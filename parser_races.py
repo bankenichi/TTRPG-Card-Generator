@@ -76,10 +76,11 @@ def enrich_race(item, type_map=None, all_raw=None):
     elif isinstance(sp, dict):
         sp_strs = []
         for k, v in sp.items():
-            if isinstance(v, int):
+            if isinstance(v, bool):
+                if v:
+                    sp_strs.append(f"{k} equal to walking speed")
+            elif isinstance(v, int):
                 sp_strs.append(f"{k} {v} ft.")
-            elif isinstance(v, bool) and v:
-                sp_strs.append(f"{k} equal to walking speed")
             elif isinstance(v, dict):
                 sp_strs.append(f"{k} {v.get('number', 0)} ft.")
         if sp_strs:

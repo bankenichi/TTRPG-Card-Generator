@@ -1,5 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
+cd /d "%~dp0"
+set "PYTHONNOUSERSITE=1"
 
 echo ==============================================
 echo Launching TTRPG Card Generator

@@ -58,6 +58,14 @@ def _posix_path(path):
     return posix
 
 
+def is_within(path, root):
+    """Check real paths, including symlinks/junctions and Windows drive boundaries."""
+    try:
+        return os.path.commonpath([os.path.realpath(path), os.path.realpath(root)]) == os.path.realpath(root)
+    except ValueError:
+        return False
+
+
 def resolve_dataset_path(path, generators_dir=None):
     """Map a canonical ``generators/data/...`` path onto the discovered data root.
 
@@ -73,7 +81,10 @@ def resolve_dataset_path(path, generators_dir=None):
     prefix = CANONICAL_DATA_PREFIX
     if posix == prefix or posix.startswith(prefix + "/"):
         remainder = posix[len(prefix):].lstrip("/")
-        return os.path.normpath(os.path.join(root, remainder) if remainder else root)
+        resolved = os.path.normpath(os.path.join(root, remainder) if remainder else root)
+        if not is_within(resolved, root):
+            raise ValueError("Dataset path escapes the data root")
+        return resolved
     return path
 
 
@@ -122,7 +133,10 @@ def translate_served_path(url_path, mapped_fs_path, generators_dir=None):
     if os.path.exists(mapped_fs_path):
         return mapped_fs_path
     rel = _posix_path(url_path.split("?", 1)[0]).lstrip("/")
-    resolved = resolve_dataset_path(rel, generators_dir=generators_dir)
+    try:
+        resolved = resolve_dataset_path(rel, generators_dir=generators_dir)
+    except ValueError:
+        return os.path.join(SCRIPT_DIR, '.invalid-request')
     if resolved != rel and os.path.exists(resolved):
         return resolved
     return mapped_fs_path

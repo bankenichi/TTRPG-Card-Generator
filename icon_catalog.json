@@ -1,0 +1,185 @@
+{
+  "action-triangle-glyph": {
+    "motif": "Three-point action sigil",
+    "viewBox": "0 0 80 80"
+  },
+  "items": {
+    "motif": "Arched treasure chest",
+    "viewBox": "0 0 80 80"
+  },
+  "spells": {
+    "motif": "Open spellbook and star",
+    "viewBox": "0 0 80 80"
+  },
+  "bestiary": {
+    "motif": "Original design retained",
+    "viewBox": "0 0 80 80",
+    "status": "original"
+  },
+  "optionalfeatures": {
+    "motif": "Faceted star with plus",
+    "viewBox": "0 0 80 80"
+  },
+  "conditions-diseases": {
+    "motif": "Drop with disruption mark",
+    "viewBox": "0 0 80 80"
+  },
+  "backgrounds": {
+    "motif": "Rolled parchment and quill",
+    "viewBox": "0 0 80 80"
+  },
+  "bastions": {
+    "motif": "Three-tower stronghold",
+    "viewBox": "0 0 80 80"
+  },
+  "artificer": {
+    "motif": "Gear and central tool",
+    "viewBox": "0 0 80 80"
+  },
+  "barbarian": {
+    "motif": "Original design retained",
+    "viewBox": "0 0 80 80",
+    "status": "original"
+  },
+  "bard": {
+    "motif": "Original design retained",
+    "viewBox": "0 0 80 80",
+    "status": "original"
+  },
+  "cleric": {
+    "motif": "Radiant holy symbol",
+    "viewBox": "0 0 80 80"
+  },
+  "druid": {
+    "motif": "Original design retained",
+    "viewBox": "0 0 80 80",
+    "status": "original"
+  },
+  "fighter": {
+    "motif": "Upright sword without flanking arcs",
+    "viewBox": "0 0 80 80",
+    "status": "approved"
+  },
+  "monk": {
+    "motif": "Lotus in a meditation circle",
+    "viewBox": "0 0 80 80"
+  },
+  "paladin": {
+    "motif": "Protective shield with a radiant diamond",
+    "viewBox": "0 0 80 80",
+    "status": "approved"
+  },
+  "ranger": {
+    "motif": "Strung bow and arrow",
+    "viewBox": "0 0 80 80"
+  },
+  "rogue": {
+    "motif": "Original design retained",
+    "viewBox": "0 0 80 80",
+    "status": "original"
+  },
+  "sorcerer": {
+    "motif": "Flame around an innate spark",
+    "viewBox": "0 0 80 80"
+  },
+  "warlock": {
+    "motif": "Original design retained",
+    "viewBox": "0 0 80 80",
+    "status": "original"
+  },
+  "wizard": {
+    "motif": "Open book and orb staff",
+    "viewBox": "0 0 80 80",
+    "status": "approved"
+  },
+  "arcane-shot": {
+    "motif": "Arrow crossing a magical ring",
+    "viewBox": "0 0 80 80"
+  },
+  "decks": {
+    "motif": "Fanned playing cards",
+    "viewBox": "0 0 80 80"
+  },
+  "deities": {
+    "motif": "Sun above a shrine",
+    "viewBox": "0 0 80 80"
+  },
+  "eldritch-invocation": {
+    "motif": "Uncanny eye and hanging sigil",
+    "viewBox": "0 0 80 80"
+  },
+  "elemental-discipline": {
+    "motif": "Four elemental currents",
+    "viewBox": "0 0 80 80"
+  },
+  "feats": {
+    "motif": "Original design retained",
+    "viewBox": "0 0 80 80",
+    "status": "original"
+  },
+  "languages": {
+    "motif": "Overlapping speech and letter",
+    "viewBox": "0 0 80 80"
+  },
+  "maneuvers": {
+    "motif": "Shield with two directional arrows",
+    "viewBox": "0 0 80 80"
+  },
+  "metamagic": {
+    "motif": "Twisting streams around a star",
+    "viewBox": "0 0 80 80"
+  },
+  "psionics": {
+    "motif": "Original design retained",
+    "viewBox": "0 0 80 80",
+    "status": "original"
+  },
+  "races": {
+    "motif": "Original design retained",
+    "viewBox": "0 0 80 80",
+    "status": "original"
+  },
+  "renown-perk": {
+    "motif": "Ribbon and medal",
+    "viewBox": "0 0 80 80"
+  },
+  "rune-knight-rune": {
+    "motif": "Runestone with angular rune",
+    "viewBox": "0 0 80 80"
+  },
+  "skills": {
+    "motif": "Original design retained",
+    "viewBox": "0 0 80 80",
+    "status": "original"
+  },
+  "supernatural-gifts": {
+    "motif": "Open palm carrying a spark",
+    "viewBox": "0 0 80 80"
+  },
+  "vehicles": {
+    "motif": "Ship with sail and waves",
+    "viewBox": "0 0 80 80"
+  },
+  "psion": {
+    "motif": "Thought crystal and expanding arcs",
+    "viewBox": "0 0 80 80"
+  },
+  "mystic": {
+    "motif": "Lotus and inner star",
+    "viewBox": "0 0 80 80"
+  },
+  "sidekick": {
+    "motif": "Companion lantern and paired trail marks",
+    "viewBox": "0 0 80 80",
+    "status": "approved"
+  },
+  "vehicle-upgrades": {
+    "motif": "Ship wheel and fastener",
+    "viewBox": "0 0 80 80"
+  },
+  "classes": {
+    "motif": "Original design retained",
+    "viewBox": "0 0 80 80",
+    "status": "original"
+  }
+}

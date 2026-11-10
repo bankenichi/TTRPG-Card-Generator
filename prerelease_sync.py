@@ -1,4 +1,4 @@
-﻿"""Fetch and index prerelease content declared by the installed dataset."""
+"""Fetch and index prerelease content declared by the installed dataset."""
 
 from __future__ import annotations
 
@@ -256,31 +256,10 @@ def _index_pack_entities(prerelease_dir: str, rel_files: List[str]) -> dict:
 
 
 def _materialize_copy(item: dict, dtype: str, index: dict) -> dict:
-    if not isinstance(item, dict) or "_copy" not in item:
-        return item
-    copy_meta = item.get("_copy")
-    if not isinstance(copy_meta, dict):
-        return item
-    # Try several key shapes used by class/subclass copies
-    candidates = [
-        (dtype, str(copy_meta.get("name","")).lower(), str(copy_meta.get("source","")).lower(),
-         str(copy_meta.get("shortName","")).lower(), str(copy_meta.get("className","")).lower(),
-         str(copy_meta.get("classSource","")).lower()),
-        (dtype, str(copy_meta.get("name","")).lower(), str(copy_meta.get("source","")).lower()),
-    ]
-    base = None
-    for key in candidates:
-        base = index.get(key)
-        if base:
-            break
-    if not base:
-        return item
-    merged = dict(base)
-    for k, v in item.items():
-        if k == "_copy":
-            continue
-        merged[k] = v
-    return merged
+    from copy_resolver import materialize
+    def lookup(meta, child):
+        return index.get(_entity_key(dtype, meta)) or index.get((dtype, str(meta.get('name', '')).lower(), str(meta.get('source', '')).lower()))
+    return materialize(item, lookup)
 
 
 def _process_class_files(prerelease_dir: str, rel_files: List[str]) -> None:
@@ -303,7 +282,7 @@ def _process_class_files(prerelease_dir: str, rel_files: List[str]) -> None:
                 continue
             new_list = []
             for item in val:
-                if isinstance(item, dict) and "_copy" in item:
+                if key in ("class", "subclass") and isinstance(item, dict) and "_copy" in item and not item["_copy"].get("_templates"):
                     new_list.append(_materialize_copy(item, key, index))
                     changed = True
                 else:
@@ -423,7 +402,8 @@ def _fetch_via_zip(zip_url: str, dest_dir: str) -> bool:
         zip_path = os.path.join(dest_dir, "_archive.zip")
         urllib.request.urlretrieve(zip_url, zip_path)
         with zipfile.ZipFile(zip_path, "r") as zf:
-            zf.extractall(dest_dir)
+            from data_install import safe_extract
+            safe_extract(zf, dest_dir)
         os.remove(zip_path)
         return True
     except Exception as e:
@@ -451,7 +431,7 @@ def sync_prerelease_content(data_root: str, git_cmd: Optional[str] = None) -> bo
     root_url = urls["URL_ROOT_PRERELEASE"]
     zip_url = _zip_url_from_repo(repo_url, root_url)
 
-    tmp = tempfile.mkdtemp(prefix="prerelease_sync_")
+    tmp = tempfile.mkdtemp(prefix=".prerelease-sync-", dir=data_root)
     try:
         fetched = False
         fetch_src = os.path.join(tmp, "src")
@@ -464,7 +444,11 @@ def sync_prerelease_content(data_root: str, git_cmd: Optional[str] = None) -> bo
             print("Prerelease content: skipped (fetch failed or offline)")
             return False
 
-        _clear_managed_content(prerelease_dir)
+        live_prerelease = prerelease_dir
+        prerelease_dir = os.path.join(tmp, "ready")
+        os.makedirs(prerelease_dir)
+        if os.path.isfile(os.path.join(live_prerelease, "index.json")):
+            shutil.copy2(os.path.join(live_prerelease, "index.json"), prerelease_dir)
         rel_files = _copy_content_trees(fetch_src, prerelease_dir)
         if not rel_files:
             print("Prerelease content: skipped (no content files in fetch)")
@@ -486,6 +470,8 @@ def sync_prerelease_content(data_root: str, git_cmd: Optional[str] = None) -> bo
 
         _update_to_import(prerelease_dir, rel_files)
         cats = _build_indexes(data_root, prerelease_dir, rel_files)
+        from data_install import replace_tree
+        replace_tree(prerelease_dir, live_prerelease)
         print(f"Prerelease content: synced {len(rel_files)} files for {len(cats)} categories")
         return True
     finally:

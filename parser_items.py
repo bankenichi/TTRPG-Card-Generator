@@ -1,5 +1,6 @@
 import copy
 import re
+from html import escape
 from parser_utils import BYPASS_EXCLUDED_SOURCES_DTYPES
 
 # Magic variants always pass through the global excluded-sources filter so that
@@ -180,7 +181,7 @@ def enrich_item_data(item, base_data_list, type_map, prop_map, raw_dict):
     # Build the rarity string
     abbr = RARITY_ABBR.get(rarity_val, rarity_val.capitalize() if rarity_val not in ('none', 'unknown', 'unknown (magic)', '') else '')
     if abbr:
-        item['rarity_badge'] = f'<span style="color: {pc}; font-weight: 900;">{abbr}</span>'
+        item['rarity_badge'] = f'<span style="color: {pc}; font-weight: 900;">{escape(str(abbr))}</span>'
     else:
         item['rarity_badge'] = ''
 

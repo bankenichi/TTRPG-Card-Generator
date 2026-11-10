@@ -3,6 +3,7 @@ import sys
 import json
 import subprocess
 import webbrowser
+from local_http import LocalRequestHandler
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 
@@ -53,105 +54,35 @@ def install_dependencies():
     try:
         req_file = os.path.join(SCRIPT_DIR, "requirements.txt")
         if os.path.exists(req_file):
-            subprocess.run([PYTHON_EXE, "-m", "pip", "install", "-r", req_file], check=True)
-        return True, "Dependencies installed."
+            subprocess.run([PYTHON_EXE, "-s", "-m", "pip", "install", "-r", req_file], check=True)
+        renderer_env = os.environ.copy()
+        renderer_env.setdefault("PLAYWRIGHT_BROWSERS_PATH", os.path.join(SCRIPT_DIR, "pdf-browser"))
+        subprocess.run([PYTHON_EXE, "-m", "playwright", "install", "--no-shell", "chromium"], check=True, env=renderer_env)
+        return True, "Dependencies and pinned PDF renderer installed."
     except Exception as e:
         return False, f"Dependency installation failed: {str(e)}"
 
-HTML_TEMPLATE = """<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>TTRPG Card Generator - Installation</title>
-    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
-    <style>
-        body { font-family: Arial, sans-serif; margin: 2rem; background: #f4f4f4; color: #111; }
-        .panel { max-width: 600px; margin: auto; padding: 2rem; background: white; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.1); }
-        h1 { margin-top: 0; color: #2d7aeb; display: flex; align-items: center; gap: 15px; }
-        .step { margin-bottom: 1rem; padding: 1rem; border-radius: 8px; background: #fafafa; border: 1px solid #eee; }
-        .step-active { border-color: #2d7aeb; background: #f0f7ff; }
-        .step-done { border-color: #2e7d32; background: #f1f8e9; }
-        .btn { display: inline-block; padding: 0.75rem 1.5rem; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-decoration: none; transition: background 0.2s; }
-        .btn-primary { background: #2d7aeb; color: white; }
-        .btn-primary:hover { background: #215ec8; }
-        .status { margin-top: 1rem; padding: 1rem; border-radius: 6px; }
-        .status-success { background: #e8f5e9; color: #2e7d32; }
-        .status-error { background: #ffebee; color: #c62828; }
-        .checkbox-group { margin: 1.5rem 0; display: flex; align-items: center; gap: 10px; font-weight: bold; cursor: pointer; }
-        input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
-    </style>
-</head>
-<body>
-    <div class="panel">
-        <h1>
-            <img src="/icons/favicon.svg" width="40" height="40">
-            Installation Complete
-        </h1>
-        
-        <p>The TTRPG Card Generator has been successfully set up on your system.</p>
-        
-        <div class="step step-done">
-            <strong>✓ Environment Ready</strong>
-            <p style="font-size: 0.9em; color: #666; margin: 5px 0 0 0;">Python and Git are configured.</p>
-        </div>
 
-        <div id="status" class="status" style="display:none;"></div>
+class InstallerRequestHandler(LocalRequestHandler):
+    def do_POST(self):
+        if urlparse(self.path).path == '/finish':
+            return self.do_GET()
+        self.send_error(404)
 
-        <label class="checkbox-group">
-            <input type="checkbox" id="create-shortcut" checked>
-            Create Desktop Shortcut
-        </label>
-        
-        <button class="btn btn-primary" onclick="finishSetup()">Finish Setup & Launch</button>
-    </div>
-
-    <script>
-        async function finishSetup() {
-            const createShortcut = document.getElementById('create-shortcut').checked;
-            const status = document.getElementById('status');
-            
-            status.style.display = 'block';
-            status.className = 'status';
-            status.textContent = 'Finalizing shortcuts and environment...';
-            
-            try {
-                const resp = await fetch(`/finish?shortcut=${createShortcut}`);
-                const data = await resp.json();
-                
-                if (data.success) {
-                    status.className = 'status status-success';
-                    status.textContent = 'Setup complete! Launching generator and closing this tab...';
-                    
-                    // Close tab after a short delay
-                    setTimeout(() => {
-                        window.close();
-                        // Fallback
-                        document.body.innerHTML = '<div class="panel"><h1>Done</h1><p>You can close this tab now. Branded shortcuts have been added to your folder.</p></div>';
-                    }, 1500);
-                } else {
-                    status.className = 'status status-error';
-                    status.textContent = data.message;
-                }
-            } catch (e) {
-                status.className = 'status status-error';
-                status.textContent = 'An error occurred: ' + e;
-            }
-        }
-    </script>
-</body>
-</html>"""
-
-class InstallerRequestHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         parsed = urlparse(self.path)
         if parsed.path == '/':
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.end_headers()
-            self.wfile.write(HTML_TEMPLATE.encode('utf-8'))
+            from workbench_ui import render_installer
+            self.wfile.write(render_installer().encode('utf-8'))
             return
             
         elif parsed.path == '/finish':
+            if self.command != 'POST':
+                self.send_error(405, 'Use POST for this operation')
+                return
             params = parse_qs(parsed.query)
             do_shortcut = params.get('shortcut', ['false'])[0].lower() == 'true'
             
@@ -173,7 +104,7 @@ class InstallerRequestHandler(SimpleHTTPRequestHandler):
                 import time
                 def delayed_launch():
                     time.sleep(1)
-                    subprocess.Popen(["cmd", "/c", "launch.bat"], shell=True)
+                    subprocess.Popen(["cmd", "/c", os.path.join(SCRIPT_DIR, "launch.bat")], cwd=SCRIPT_DIR)
                     os._exit(0)
                 threading.Thread(target=delayed_launch).start()
             else:
@@ -189,11 +120,12 @@ class InstallerRequestHandler(SimpleHTTPRequestHandler):
         super().do_GET()
 
 def serve_installer(port=8002):
-    server_address = ('', port)
+    server_address = ('127.0.0.1', port)
     httpd = HTTPServer(server_address, InstallerRequestHandler)
     url = f'http://localhost:{port}/'
     print(f'Installation complete. Please finish setup at {url}')
-    webbrowser.open(url)
+    if os.environ.get("TTRPG_NO_BROWSER") != "1":
+        webbrowser.open(url)
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
@@ -201,5 +133,12 @@ def serve_installer(port=8002):
 
 if __name__ == '__main__':
     # Run the technical parts first (silent)
-    install_dependencies()
-    serve_installer()
+    success, message = install_dependencies()
+    print(message)
+    if not success:
+        sys.exit(1)
+    if '--headless' in sys.argv:
+        with open(os.path.join(SCRIPT_DIR, 'install.lock'), 'w', encoding='utf-8') as lock:
+            lock.write('Setup complete')
+    else:
+        serve_installer()

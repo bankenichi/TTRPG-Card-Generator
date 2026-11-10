@@ -1,16 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
-  <!-- Laurel wreath left -->
-  <path d="M24,52 Q14,44 16,32 Q18,22 26,18" fill="none" stroke="#5a4a2f" stroke-width="2" stroke-linecap="round"/>
-  <ellipse cx="17" cy="26" rx="5" ry="3" fill="none" stroke="#5a4a2f" stroke-width="1.4" transform="rotate(-40,17,26)"/>
-  <ellipse cx="15" cy="35" rx="5" ry="3" fill="none" stroke="#5a4a2f" stroke-width="1.4" transform="rotate(-55,15,35)"/>
-  <ellipse cx="17" cy="44" rx="5" ry="3" fill="none" stroke="#5a4a2f" stroke-width="1.4" transform="rotate(-30,17,44)"/>
-  <!-- Laurel wreath right -->
-  <path d="M56,52 Q66,44 64,32 Q62,22 54,18" fill="none" stroke="#5a4a2f" stroke-width="2" stroke-linecap="round"/>
-  <ellipse cx="63" cy="26" rx="5" ry="3" fill="none" stroke="#5a4a2f" stroke-width="1.4" transform="rotate(40,63,26)"/>
-  <ellipse cx="65" cy="35" rx="5" ry="3" fill="none" stroke="#5a4a2f" stroke-width="1.4" transform="rotate(55,65,35)"/>
-  <ellipse cx="63" cy="44" rx="5" ry="3" fill="none" stroke="#5a4a2f" stroke-width="1.4" transform="rotate(30,63,44)"/>
-  <!-- Wreath tie -->
-  <path d="M24,52 Q40,60 56,52" fill="none" stroke="#5a4a2f" stroke-width="2" stroke-linecap="round"/>
-  <!-- 5-point star inside -->
-  <polygon points="40,18 43,28 53,28 45,34 48,44 40,38 32,44 35,34 27,28 37,28" fill="none" stroke="#5a4a2f" stroke-width="1.8" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80" fill="none" stroke="black" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M23 9H37L46 30L33 39ZM43 9H57L47 34L40 19"/><circle cx="40" cy="51" r="20"/><path d="M40 39L44 47L53 48L46 54L48 63L40 58L32 63L34 54L27 48L36 47Z"/>
 </svg>

@@ -832,12 +832,27 @@ def generate_html(payload, output_html_path=None):
                 enriched['_origin_file'] = origin_file
             unique_items[dedup_key] = enriched
     
+    # Only entities routed to the items parser may enter item-family grouping.
+    non_item_types = {
+        'facility', 'bastion', 'bastions', 'action', 'actions', 'condition',
+        'conditions', 'disease', 'diseases', 'status', 'deck', 'decks', 'card', 'cards',
+        'deity', 'deities', 'psionic', 'psionics', 'vehicle', 'vehicles',
+        'vehicleUpgrade', 'feat', 'feats', 'race', 'races', 'subrace', 'subraces',
+        'spell', 'spells', 'class', 'subclass', 'skill', 'skills',
+        'optionalfeature', 'optionalfeatures', 'language', 'languages',
+        'background', 'backgrounds', 'monster',
+    }
     grouped_items = {}
     for item in unique_items.values():
-        base_name, variant_key, variant_type = extract_variant_name(item.get('name', 'Unknown'))
+        if item.get('_data_type') in non_item_types:
+            base_name, variant_key, variant_type = item.get('name', 'Unknown'), None, None
+        else:
+            base_name, variant_key, variant_type = extract_variant_name(item.get('name', 'Unknown'))
         base_key = base_name.lower().strip()
         origin_file = item.get('_origin_file', '')
         group_key = f"{origin_file}_{base_key}"
+        if item.get('_data_type') in non_item_types:
+            group_key = (origin_file, item['_data_type'], base_key)
         
         if group_key not in grouped_items: grouped_items[group_key] = {'variants': {}, 'base': None, 'variant_type': None}
         if variant_type:
@@ -861,6 +876,25 @@ def generate_html(payload, output_html_path=None):
         if variants:
             b_keys = sorted(list(variants.keys()))
             if v_type == 'bonus' and len(b_keys) > 1:
+                # Keep the established bonus/rarity/price family rule, but never
+                # replace different printed rules or requirements with the first.
+                signatures = set()
+                for key in b_keys:
+                    variant = variants[key]
+                    entries = replace_bonus_text(variant.get('entries', []), key, '__BONUS__')
+                    # Price-table display amounts vary with rarity, just like
+                    # the prices already combined by the existing family rule.
+                    encoded = json.dumps(entries, ensure_ascii=False)
+                    encoded = re.sub(r'(\{@table (?:Magic Item Values by Rarity|Magic Item Rarities and Values)(?:;[^{}|]+)?\|[^{}|]*\|)\d[\d,.]*\s+(?:cp|sp|ep|gp|pp)(?=\})', r'\1__PRICE__', encoded, flags=re.I)
+                    entries = json.loads(encoded)
+                    rules = ''.join(parse_entry_to_html(entry) for entry in flatten_entries(entries))
+                    footer = FOOTER_RENDERERS['_items'](variant)
+                    signatures.add((rules, clean_tags(variant.get('meta_left', '')),
+                                    clean_tags(variant.get('custom_footer_left', '')),
+                                    clean_tags(variant.get('custom_footer_right', '')), footer[1]))
+                if len(signatures) > 1:
+                    condensed_items.extend(variants.values())
+                    continue
                 b_str = f"{b_keys[0]} or {b_keys[-1]}" if len(b_keys) == 2 else ", ".join(b_keys[:-1]) + f", or {b_keys[-1]}"
                 ni = copy.deepcopy(variants[b_keys[0]])
                 ni['name'] = f"{extract_bonus_name(ni['name'])[0]}, {b_str}"
@@ -1017,6 +1051,18 @@ def generate_html(payload, output_html_path=None):
                 target_lines = base_target
             chunks = split_item_by_lines(flat_de, target_lines=target_lines, absolute_max=base_max, chars_per_line=chars_per_line)
             
+        # This AU card's padded spell table makes the original column estimate
+        # too short. Move complete preceding sections into its spare first
+        # column; preserve one card, entry order, and every other item's split.
+        if (item.get('name') == "Queen Ehlissa's Marvelous Nightingale"
+                and item.get('source') == 'AU' and chunks_per_card == 2 and len(chunks) == 2):
+            boundary = next((i for i, entry in enumerate(chunks[1])
+                             if isinstance(entry, dict) and entry.get('type') == 'nested_header'
+                             and entry.get('name') == 'Destroying the Nightingale'), None)
+            if boundary is not None:
+                chunks[0].extend(chunks[1][:boundary])
+                chunks[1] = chunks[1][boundary:]
+
         card_contents = []
         if chunks_per_card == 2:
             for i in range(0, len(chunks), 2):

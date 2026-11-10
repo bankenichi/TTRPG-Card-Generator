@@ -1,2 +1,4 @@
-# This file is intentionally left blank for now since the project relies on standard libraries.
-# Add any future pip dependencies here.
+# The pinned Chromium revision and local fonts keep PDF rendering reproducible.
+playwright==1.60.0
+pypdf==6.11.0
+Pillow==12.2.0
