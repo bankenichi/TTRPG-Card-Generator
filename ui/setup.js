@@ -7,6 +7,16 @@
   async function responseResult(response){const result=await response.json();if(!response.ok)throw new Error(result.message||result.error||'The request failed.');return result;}
   async function waitForImport(id){let current;do{await new Promise(r=>setTimeout(r,600));current=await responseResult(await fetch('/setup-status?id='+encodeURIComponent(id)));status(current.message||'Importing your data…');}while(current.state==='running');complete(current.state==='complete',current.message);}
   $('manage-button').addEventListener('click',()=>{$('import-panels').hidden=!$('import-panels').hidden;});
+  $('srd-button').addEventListener('click',async()=>{
+    if(busy)return;setBusy(true);status('Downloading SRD 5.2.1…');
+    try{
+      if(config.platform==='android'){
+        const result=await responseResult(await fetch('/setup-srd',{method:'POST'}));await waitForImport(result.id);
+      }else{
+        const result=await responseResult(await fetch('/setup?type=srd',{method:'POST'}));complete(result.success,result.message);
+      }
+    }catch(error){complete(false,error.message);}
+  });
   $('launch-button').addEventListener('click',async()=>{
     if(config.inGenerator||config.platform==='android'){location.assign('/');return;}
     setBusy(true);status('Opening your workbench…');

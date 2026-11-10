@@ -22,6 +22,7 @@ from data_paths import (
     translate_served_path,
 )
 from prerelease_sync import sync_prerelease_content
+from verified_srd import download_verified_srd, SRD_RELEASE_URL, SRD_RELEASE_SHA256
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 GIT_EXE = os.path.join(SCRIPT_DIR, "git-portable", "bin", "git.exe")
@@ -36,6 +37,15 @@ def get_git_cmd():
             return GIT_EXE
     return None
 
+
+def _is_srd_source(root):
+    try:
+        with open(os.path.join(root, 'manifest.json'), encoding='utf-8') as source:
+            manifest = json.load(source)
+        return isinstance(manifest, dict) and manifest.get('source_id') == 'SRD521' and manifest.get('srd') == '5.2.1'
+    except (OSError, ValueError):
+        return False
+
 def setup_from_git(repo_url):
     git_cmd = get_git_cmd()
     if not git_cmd:
@@ -48,7 +58,8 @@ def setup_from_git(repo_url):
             staged = os.path.join(temp, 'repository')
             subprocess.run([git_cmd, "clone", "--no-hardlinks", "--", repo_url, staged], check=True)
             validate_dataset(staged)
-            sync_prerelease_content(staged, git_cmd=git_cmd)
+            if not _is_srd_source(staged):
+                sync_prerelease_content(staged, git_cmd=git_cmd)
             replace_tree(staged, DATA_DIR)
         return True, "Successfully cloned repository."
     except Exception as e:
@@ -64,7 +75,8 @@ def extract_zip_data(zip_bytes):
                 safe_extract(archive, extracted)
             staged = dataset_from_extraction(extracted)
             validate_dataset(staged)
-            sync_prerelease_content(staged, git_cmd=get_git_cmd())
+            if not _is_srd_source(staged):
+                sync_prerelease_content(staged, git_cmd=get_git_cmd())
             replace_tree(staged, DATA_DIR)
         return True, "Successfully extracted ZIP."
     except Exception as e:
@@ -97,6 +109,12 @@ class LauncherRequestHandler(LocalRequestHandler):
             if stype == 'git':
                 url = params.get('url', [''])[0]
                 success, message = setup_from_git(url)
+            elif stype == 'srd':
+                try:
+                    download_verified_srd(SRD_RELEASE_URL, SRD_RELEASE_SHA256, DATA_DIR)
+                    success, message = True, 'SRD 5.2.1 is ready.'
+                except Exception as exc:
+                    success, message = False, f'SRD download failed: {exc}'
                 
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')
