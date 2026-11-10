@@ -24,7 +24,7 @@ This tool is designed to run on **Windows** and requires an active internet conn
 1. Download **`install.bat`** and run it.
 2. The installer will set up a portable Python environment, PDF dependencies, and a pinned Chromium renderer in `pdf-browser/`. Existing user Python packages are excluded. Initial setup requires additional download space for Chromium.
 3. Once finished, it will launch the **TTRPG Card Generator Setup**.
-4. Provide a Git URL or a local ZIP path to your data source.
+4. Choose **Download SRD 5.2.1** for the included default library, or provide a custom Git URL or ZIP archive. Existing installed libraries are kept unless you choose to replace them. See [SRD download details](docs/SRD-DOWNLOAD.md).
 5. Use **`launch.bat`** anytime to start the generator.
 
 ##  How to Use
