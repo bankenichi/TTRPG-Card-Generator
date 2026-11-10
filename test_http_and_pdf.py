@@ -33,6 +33,13 @@ class HttpBoundaryTest(unittest.TestCase):
     def test_allowed_output_is_served(self):
         self.assertEqual(self.request('/Custom_Deck_Test.html'), (200, b'allowed'))
 
+    def test_about_page_serves_the_single_srd_notice(self):
+        status,body=self.request('/about')
+        self.assertEqual(status,200)
+        html=body.decode('utf-8')
+        self.assertEqual(html.count('This work includes material from the System Reference Document 5.2.1'),1)
+        self.assertIn('https://www.dndbeyond.com/srd',html)
+
     def test_private_files_and_traversal_are_blocked(self):
         for path in ('/private.txt', '/.git/config', '/generators/data/../../../private.txt', '/generators/data/%2e%2e/%2e%2e/private.txt'):
             with self.subTest(path=path): self.assertEqual(self.request(path)[0], 404)

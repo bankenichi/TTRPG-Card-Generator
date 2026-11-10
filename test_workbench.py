@@ -5,7 +5,7 @@ import tempfile
 import unittest
 
 from deck_output import split_document, write_batches
-from workbench_ui import render_workbench, render_viewer, render_setup, render_installer
+from workbench_ui import render_workbench, render_viewer, render_setup, render_installer, render_about
 
 ROOT = Path(__file__).resolve().parent
 
@@ -43,6 +43,8 @@ class WorkbenchTest(unittest.TestCase):
         path = urlsplit(route.request.url).path
         if path == '/':
             route.fulfill(body=self.html, content_type='text/html')
+        elif path == '/about':
+            route.fulfill(body=render_about(), content_type='text/html')
         elif path.startswith(('/icons/', '/fonts/')) and (ROOT / path[1:]).is_file():
             route.fulfill(path=str(ROOT / path[1:]))
         elif path.endswith('.html'):
@@ -55,6 +57,24 @@ class WorkbenchTest(unittest.TestCase):
 
     def payload(self):
         return self.page.evaluate('WorkbenchTools.buildPayload()')
+
+    def test_srd_attribution_is_once_on_about_and_absent_from_card_viewer(self):
+        phrase='This work includes material from the System Reference Document 5.2.1'
+        expected=('This work includes material from the System Reference Document 5.2.1 (“SRD 5.2.1”) '
+                  'by Wizards of the Coast LLC, available at https://www.dndbeyond.com/srd. '
+                  'The SRD 5.2.1 is licensed under the Creative Commons Attribution 4.0 International License, '
+                  'available at https://creativecommons.org/licenses/by/4.0/legalcode.')
+        self.assertEqual(render_about().count(phrase),1)
+        for html in (self.html,render_setup(False),render_viewer({'files':[],'sheet_count':0,'kind':'Cards'})):
+            self.assertNotIn(phrase,html)
+        self.open()
+        self.page.get_by_role('link',name='About & licenses').click()
+        self.page.get_by_role('heading',name='About & licenses').wait_for()
+        self.assertEqual(self.page.get_by_text(phrase,exact=False).count(),1)
+        self.assertEqual(self.page.locator('section[aria-labelledby="srd-attribution"] p').inner_text(),expected)
+        self.assertEqual(self.page.get_by_role('link',name='https://creativecommons.org/licenses/by/4.0/legalcode').get_attribute('href'),'https://creativecommons.org/licenses/by/4.0/legalcode')
+        self.page.set_viewport_size({'width':390,'height':844})
+        self.assertFalse(self.page.evaluate('document.documentElement.scrollWidth>innerWidth'))
 
     def test_empty_filters_keep_both_origins_and_all_selection_is_unrestricted(self):
         self.open()
