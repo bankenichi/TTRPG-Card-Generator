@@ -54,3 +54,19 @@ the other 1,602 cards byte-for-byte. That authorization does not permit changes
 to full-database rendering or its installed source files.
 
 These host checks do not replace native-device or final-PDF visual tests.
+
+## Recheck after the explicit preservation requirement
+
+Fresh captures in `desktop-latest-constraint-recheck/` and
+`android-latest-constraint-recheck/` both pass against their original frozen
+baselines: 12,270 cards, 10,183 entries and 1,374 sheets per platform. All
+ordered card hashes, shell and complete HTML hashes are exact, as are the
+protected code hashes. All 651 installed JSON inputs remain unchanged. The
+five focused preservation tests also pass, including rejection of a changed
+split with an unchanged card count.
+
+Any proposed renderer change must pass this full-database comparison on both
+platforms. Matching totals alone cannot approve it: changed grouping, splits,
+order, card markup or document layout fails the gate. Do not regenerate a
+baseline to absorb such a difference. The six separately approved SRD input
+overrides do not relax the installed full-database requirement.
