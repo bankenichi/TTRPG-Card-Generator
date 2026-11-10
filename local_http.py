@@ -15,9 +15,10 @@ class LocalRequestHandler(SimpleHTTPRequestHandler):
         super().__init__(*args, **kwargs)
 
     def do_GET(self):
-        if urlsplit(self.path).path == '/about':
-            from workbench_ui import render_about
-            body = render_about().encode('utf-8')
+        if urlsplit(self.path).path in ('/about', '/privacy'):
+            from workbench_ui import render_about, render_privacy
+            render = render_privacy if urlsplit(self.path).path == '/privacy' else render_about
+            body = render().encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html; charset=utf-8')
             self.send_header('Content-Length', str(len(body)))

@@ -22,7 +22,7 @@ from data_paths import (
     translate_served_path,
 )
 from prerelease_sync import sync_prerelease_content
-from verified_srd import download_verified_srd, SRD_RELEASE_URL, SRD_RELEASE_SHA256
+from verified_srd import install_bundled_srd
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 GIT_EXE = os.path.join(SCRIPT_DIR, "git-portable", "bin", "git.exe")
@@ -111,10 +111,10 @@ class LauncherRequestHandler(LocalRequestHandler):
                 success, message = setup_from_git(url)
             elif stype == 'srd':
                 try:
-                    download_verified_srd(SRD_RELEASE_URL, SRD_RELEASE_SHA256, DATA_DIR)
+                    install_bundled_srd(DATA_DIR)
                     success, message = True, 'SRD 5.2.1 is ready.'
                 except Exception as exc:
-                    success, message = False, f'SRD download failed: {exc}'
+                    success, message = False, f'SRD setup failed: {exc}'
                 
             self.send_response(200)
             self.send_header('Content-Type', 'application/json')

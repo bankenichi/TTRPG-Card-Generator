@@ -1,22 +1,22 @@
-# Default SRD library
+# Included SRD library
 
-Fresh setup offers **Download SRD 5.2.1** first. It downloads the data-only
-[SRD release](https://github.com/bankenichi/5etools-srd/releases/tag/srd-5.2.1-r1)
-without requiring Git or a repository URL. Custom repository and ZIP imports
-remain available below it. Existing installed libraries are not downloaded
-over or switched automatically.
+Fresh setup offers **Use included SRD 5.2.1** first. The library is packaged
+with the app and works offline. Custom GitHub repository downloads and ZIP
+imports remain available. An existing library is kept until you explicitly
+choose to replace it.
 
-The archive is pinned by URL and SHA-256 in `verified_srd.py`. Every data file
-is checked against its manifest before installation. Failed downloads or
-verification preserve the current library. SRD imports do not fetch or merge
-prerelease/playtest content.
+Both apps include the same small data-only archive (about 433 KiB), pinned
+by SHA-256 in `verified_srd.py`. Each of its 40 JSON files is checked against
+the manifest before installation. Failed verification preserves existing data.
+The package contains 2,136 SRD records plus its manifest, README, attribution
+and data license. No external database, repository URL or upstream metadata is
+included. Official SRD source citations and attribution are retained.
 
-The pruned source repository is
-[bankenichi/5etools-srd](https://github.com/bankenichi/5etools-srd). It contains
-40 data JSON files and 2,136 records. The 881,728-byte release archive contains
-only data, manifest, attribution, data license and README.
+To reproduce the bundle from reviewed data, use
+`tools/package_bundled_srd.py --source <reviewed-data-folder> --out <archive.zip>`
+in the desktop repository. It copies game data without changing any bytes.
 
-Desktop and Android use the same release and checksum. The existing renderer,
-fitting, grouping and splitting implementations are unchanged. The previously
-approved six SRD-only orientation settings remain in the data. The app's SRD
-notice is in About & licenses, once per app.
+Renderer, fitting, grouping and splitting code are unchanged. The previously
+approved six SRD-only orientation settings remain in the data. The SRD notice
+appears once in About & licenses; the short privacy policy is available there,
+in Data setup, and in the workbench footer.

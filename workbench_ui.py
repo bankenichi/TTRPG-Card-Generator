@@ -37,6 +37,10 @@ def render_about():
     return _read('about.html.template').replace('__SHELL_CSS__', _read('shell.css'))
 
 
+def render_privacy():
+    return _read('privacy.html.template').replace('__SHELL_CSS__', _read('shell.css'))
+
+
 def render_viewer(manifest):
     return (_render('viewer.html.template', manifest, 'viewer.js')
             .replace('__VIEWER_CSS__', _read('viewer.css')))

@@ -1,9 +1,10 @@
-"""Install a pinned SRD data-only release without enriching or changing its data.
+"""Install an integrity-checked SRD library without changing its data.
 
-This module does no work on import and never replaces data until the downloaded
+This module does no work on import and never replaces data until the supplied
 archive and every manifest-listed data file have passed verification.
 """
 import hashlib
+from importlib import resources
 import json
 from pathlib import Path, PurePosixPath
 import re
@@ -17,8 +18,7 @@ from data_paths import is_within
 
 SRD_VERSION='5.2.1'
 SOURCE_ID='SRD521'
-SRD_RELEASE_URL='https://github.com/bankenichi/5etools-srd/releases/download/srd-5.2.1-r1/srd-5.2.1.zip'
-SRD_RELEASE_SHA256='a682b2a223d23afce40678c5821fea5dbe8ed05777c8134fb2c79a27c8a029e6'
+BUNDLED_ARCHIVE_SHA256='e7f0fe67bd30f4db125478c0e6cba54046c535a96a60d6594bf37bffebd75524'
 OFFICIAL_PDF_SHA256='8974902d109d6e63672d7c490bde9ccf052410503d9cfa768237154fbc5e3d87'
 REQUIRED_DOCUMENTS={'ATTRIBUTION.md','DATA-LICENSE.md'}
 OPTIONAL_DOCUMENTS={'README.md'}
@@ -104,6 +104,13 @@ def install_verified_srd_archive(archive_path,destination,expected_sha256,progre
         if progress:progress('Installing the verified SRD release…')
         replace_tree(staged,destination)
     return {'srd':SRD_VERSION,'source_id':SOURCE_ID,'archive_sha256':expected_sha256,'data_files':len(manifest['sha256'])}
+
+
+def install_bundled_srd(destination,progress=None):
+    """Explicit offline install, including from a zipped Android Python package."""
+    archive=resources.files('bundled_srd').joinpath('srd-5.2.1.zip')
+    with resources.as_file(archive) as path:
+        return install_verified_srd_archive(path,destination,BUNDLED_ARCHIVE_SHA256,progress)
 
 
 def download_verified_srd(url,expected_sha256,destination,progress=None):

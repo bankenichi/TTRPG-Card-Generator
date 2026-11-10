@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Privacy policy · TTRPG Card Generator</title><style>__SHELL_CSS__</style></head>
+<body><header class="topbar"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">T</span><span class="brand-name">TTRPG Card Generator</span></a><a href="/">Back to app</a></header>
+<main class="setup-page"><h1>Privacy policy</h1><p class="help">TTRPG Card Generator by bankenichi · Updated November 10, 2026</p>
+<section class="panel setup-panel">
+<p>We do not collect, sell, or track your data. There are no accounts, ads, or tracking tools.</p>
+<p>Your cards, files, and settings are used on your device. The included SRD library works offline.</p>
+<p>If you download from GitHub or another site, that site sees your internet address and the link you request. The same happens when you open a web link. That site's privacy rules apply.</p>
+<p>You choose which files to open and where to save or share your cards.</p>
+<p>Your data stays until you remove it. On Android, clear the app's storage or uninstall it. On desktop, delete the app folder. Delete saved exports and device backups separately.</p>
+<p>Questions? <a href="https://github.com/bankenichi/TTRPG-Card-Generator/issues">Contact bankenichi on GitHub</a>. Please do not post private files there.</p>
+</section></main></body></html>

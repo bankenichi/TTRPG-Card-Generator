@@ -4,6 +4,9 @@ import io
 import json
 from pathlib import Path
 import tempfile
+import re
+import subprocess
+import sys
 import unittest
 from unittest.mock import patch,Mock
 import urllib.request
@@ -157,6 +160,34 @@ class VerifiedSrdInstallTest(unittest.TestCase):
             for url,digest in [('https://example.test/srd.zip',''),('http://example.test/srd.zip','a'*64)]:
                 with self.assertRaises(ValueError):srd.download_verified_srd(url,digest,self.destination)
             fetch.assert_not_called()
+
+
+    def test_real_bundle_installs_offline_and_contains_only_clean_data(self):
+        with patch.object(srd.urllib.request,'urlopen',side_effect=AssertionError('Offline install used network')), \
+             patch.object(srd.urllib.request,'build_opener',side_effect=AssertionError('Offline install used network')):
+            result=srd.install_bundled_srd(self.destination)
+        self.assertEqual(result['data_files'],40)
+        manifest=srd.validate_srd_manifest(self.destination)
+        self.assertFalse({'upstream','upstream_commit','selection_receipts','content_corrections'} & manifest.keys())
+        for path in self.destination.rglob('*'):
+            if path.is_file():
+                raw=path.read_text('utf-8')
+                decoded=json.dumps(json.loads(raw),ensure_ascii=False) if path.suffix=='.json' else raw
+                self.assertIsNone(re.search(r'5e[. _-]?tools',path.name+decoded,re.I),str(path))
+
+    def test_resource_can_install_from_a_zipped_python_package(self):
+        package=self.root/'python-package.zip'
+        source=Path(srd.__file__).parent
+        with zipfile.ZipFile(package,'w') as archive:
+            for path in (source/'bundled_srd').glob('*'):
+                if path.is_file():archive.write(path,'bundled_srd/'+path.name)
+        script="""import sys
+sys.path[:0]=[sys.argv[1],sys.argv[2]]
+import verified_srd
+result=verified_srd.install_bundled_srd(sys.argv[3])
+assert result['data_files']==40
+"""
+        subprocess.run([sys.executable,'-s','-c',script,str(package),str(source),str(self.destination)],check=True,capture_output=True)
 
 
 if __name__=='__main__':unittest.main()

@@ -1,8 +1,10 @@
 # TTRPG Card Generator
 
-A fully local tool for generating custom, printable reference cards for TTRPGs. This tool is designed to work with datasets that follow the 5etools JSON structure.
+A fully local tool for generating custom, printable reference cards for TTRPGs. It includes the free SRD 5.2.1 library and supports compatible custom JSON datasets.
 
 Whether you need spell cards, item cards, class features, or many others, this generator automatically formats your dataset into clean, readable cards ready for the table (allegedly).
+
+[Privacy policy](PRIVACY.md) · [Included SRD library](docs/SRD-DOWNLOAD.md)
 
 ##  Features
 
@@ -24,7 +26,7 @@ This tool is designed to run on **Windows** and requires an active internet conn
 1. Download **`install.bat`** and run it.
 2. The installer will set up a portable Python environment, PDF dependencies, and a pinned Chromium renderer in `pdf-browser/`. Existing user Python packages are excluded. Initial setup requires additional download space for Chromium.
 3. Once finished, it will launch the **TTRPG Card Generator Setup**.
-4. Choose **Download SRD 5.2.1** for the included default library, or provide a custom Git URL or ZIP archive. Existing installed libraries are kept unless you choose to replace them. See [SRD download details](docs/SRD-DOWNLOAD.md).
+4. Choose **Use included SRD 5.2.1** for the included default library, or provide a custom Git URL or ZIP archive. Existing installed libraries are kept unless you choose to replace them. See [Included SRD details](docs/SRD-DOWNLOAD.md).
 5. Use **`launch.bat`** anytime to start the generator.
 
 ##  How to Use
@@ -55,7 +57,7 @@ For unattended setup/testing, set `TTRPG_INSTALL_HEADLESS=1` before running `ins
 ##  Troubleshooting
 
 **Data source not detected / dataset files 404:**
-The launcher looks under `generators/` for a 5eTools-shaped tree (`data/class` and `data/spells`), not a specific folder name. `generators/data` is preferred when that tree is ready; otherwise the first alphabetically named ready child (for example `generators/5etools`) is used. Git/ZIP installs still land in `generators/data` by default.
+The launcher looks under `generators/` for a compatible tree (`data/class` and `data/spells`), not a specific folder name. `generators/data` is preferred when that tree is ready; otherwise the first alphabetically named ready child (for example `generators/my-library`) is used. Git/ZIP installs still land in `generators/data` by default.
 
 **"ModuleNotFoundError" when launching:**
 Make sure you ran `install.bat` completely. If you are updating from an older version, delete the `python-env` folder and run `install.bat` again to pull the correct environment.
