@@ -2,9 +2,21 @@
 
 This report supersedes the earlier five-sheet native export reports and their catalog counts. Those files contained mask artifacts despite passing text checks.
 
+For the subsequent PDF-only translucent-cell seam correction and fresh SRD
+export checks, see [the 2026-11-10 report](reviews/2026-11-10-pdf-cell-seams.md).
+The historical full-item measurements below remain scoped to their frozen
+catalog and are not the complete-database count.
+
 The current controller-generated catalog contains **2,213 grouped items, 2,375 cards, and 265 Letter sheets**. The complete PDF is **23,326,715 bytes (23.3 MB)**. All 76 tests pass with no failures, errors, or skipped tests.
 
 ## Surgical renderer boundary
+
+The 2026-11-10 full-database preservation requirement also applies: any future
+authorized renderer change must preserve exact card counts, split boundaries,
+order and existing behavior on the same full input. The current SRD work makes
+no renderer/parser changes. Fresh complete-database captures pass exact output
+regression independently on both platforms; see
+[full-database evidence](reviews/2026-11-10-full-database-rendering-preservation.md).
 
 The sole new card-layout change is restricted to the exact name **Queen Ehlissa's Marvelous Nightingale**, source **AU**, with the existing two-column/two-chunk layout. Complete preceding sections move into the spare first column so the spell table fits. Entry order and one-card output are preserved. The shared splitter, thresholds, CSS, fitting script, and text helper remain unchanged.
 

@@ -173,6 +173,7 @@ def _render_batch(job):
     from pypdf import PdfReader,PdfWriter
     from pdf_layout import CAPTURE_LAYOUT,CHECK_OVERFLOW,PRINT_SHEET_CSS,validate_layout,text_signature
     from render_assets import font_css
+    from pdf_fills import coalesce_native_fills
     from deck_output import split_document
     document=Path(job['document']).read_text(encoding='utf-8')
     if len(split_document(document)[1]) != 1:
@@ -206,13 +207,21 @@ def _render_batch(job):
                     if before!=page.evaluate(CAPTURE_LAYOUT,False):raise ValueError('Printing changed the fitted HTML card layout')
                     reader=PdfReader(io.BytesIO(buffer))
                     if len(reader.pages)!=len(before):raise ValueError('PDF sheet count differs from the fitted HTML')
+                    writer=PdfWriter();writer.append(reader,import_outline=False)
                     records=[]
-                    for index,(pdf_page,layout) in enumerate(zip(reader.pages,before,strict=True)):
+                    for index,(native_page,pdf_page,layout) in enumerate(zip(reader.pages,writer.pages,before,strict=True)):
                         record={'sheet':job['first_sheet']+index,'cards':len(layout['cards']),
                             'text_signature':text_signature(''.join(card['text'] for card in layout['cards'])),
                             'layout_sha256':hashlib.sha256(json.dumps(layout,sort_keys=True).encode()).hexdigest(),'layout_unchanged':True}
-                        _verify_page(pdf_page,record);records.append(record)
-                    writer=PdfWriter();writer.append(reader,import_outline=False)
+                        _verify_page(native_page,record)
+                        # Preserve native provenance, then freeze only the guarded
+                        # fill union for the unchanged downstream drawing checks.
+                        record['native_pdf_content_sha256']=record['pdf_content_sha256']
+                        record['pdf_background_fill_joins']=coalesce_native_fills(pdf_page,writer)
+                        if record['pdf_background_fill_joins']:
+                            del record['pdf_content_sha256']
+                            _verify_page(pdf_page,record)
+                        records.append(record)
                     compact_pdf(writer);writer.write(job['pdf']);writer.close()
                     with open(job['pdf'],'rb') as stream:
                         compacted=PdfReader(stream)
