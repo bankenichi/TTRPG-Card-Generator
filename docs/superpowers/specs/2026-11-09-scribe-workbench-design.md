@@ -37,3 +37,7 @@ Protect both renderer/parser trees with recorded SHA-256 baselines. Test UI keyb
 Restore the exact original Barbarian, Bard, Bestiary, Classes, Druid, Feats, Psionics, Races, Rogue, Skills, and Warlock assets. Classes keeps its original stroke weights as well as its original graph. Keep the new Fighter sword and remove its two flanking arcs. Paladin retains the shield with a different central emblem instead of another sword. Redesign Sidekick; redesign Wizard around a staff and book. The current revised proposals use a lantern for Sidekick and a radiant diamond within Paladin's shield.
 
 The user approved the revised Fighter, Paladin, and Sidekick assets and Wizard option A (open book with an orb staff). Those choices are final for this pass.
+
+## Subsequent catalog-parity authorization
+
+After the full count audit, the user explicitly authorized careful correction of the measured Android deltas, with both repositories committed and pushed first. This permits only the non-item grouping guard, feature-reference level matching, source-driven legendary headers/budgets, and controller dataset isolation described in `docs/superpowers/plans/2026-11-09-android-catalog-deltas.md`. Android layout/fitting/splitting and unrelated parser sections remain pinned to the pushed checkpoint. The desktop renderer/parser tree remains unchanged.
